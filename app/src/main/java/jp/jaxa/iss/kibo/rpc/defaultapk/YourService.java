@@ -9,7 +9,13 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 public class YourService extends KiboRpcService {
     @Override
     protected void runPlan1(){
-        // write here your plan 1
+        //Start
+        api.startMission();
+
+        //Write code here
+
+        //Stop
+        api.reportMissionCompletion();
     }
 
     @Override
