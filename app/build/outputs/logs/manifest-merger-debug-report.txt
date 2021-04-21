@@ -1,0 +1,178 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:2:1-31:12
+	package
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:4:5-46
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:6:5-66
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.WAKE_LOCK
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:7:5-67
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:15:5-68
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:7:22-65
+application
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:9:5-29:19
+MERGED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:11:5-25:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\spsyt\.android\build-cache\a10f29ac33f7f8be0dc734391293db4c1621fed9\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\spsyt\.android\build-cache\4620173005e25b983e64a785c265ce99dc16de95\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\spsyt\.android\build-cache\71a153053658c512216edc7f15017cac7969641a\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\spsyt\.android\build-cache\97e69547cce5b2fe9ed53d69d1983c3df5487937\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\d8ae256540ce0a8c5fafdc8e918df543e6f60bf6\output\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\b807e421a7dca183954350f577bd347502756adf\output\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\spsyt\.android\build-cache\aaad747c808bd071a93ad525d22c97fa8bd1e4c8\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\spsyt\.android\build-cache\fec70634598463aec1937ad238459c9bac2e17a1\output\AndroidManifest.xml:25:5-29:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\spsyt\.android\build-cache\afd5753ad129f4f02eff776d1ca6996264a9e8a8\output\AndroidManifest.xml:24:5-28:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\spsyt\.android\build-cache\9ffc7db3d845dc3485723af521fdbcf5cb619db1\output\AndroidManifest.xml:9:5-20
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:18:5-33:19
+	android:label
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:12:9-41
+	android:supportsRtl
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:14:9-35
+	android:roundIcon
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:13:9-54
+	android:allowBackup
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:10:9-35
+	android:icon
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:11:9-43
+		REJECTED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:13:9-43
+		REJECTED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:19:9-36
+	android:theme
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:16:9-40
+	tools:replace
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:15:9-37
+activity#jp.jaxa.iss.kibo.rpc.defaultapk.MainActivity
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:18:9-23:20
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:18:19-78
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:19:13-22:29
+action#android.intent.action.MAIN
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:20:17-68
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:20:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:21:17-76
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:21:27-74
+service#jp.jaxa.iss.kibo.rpc.defaultapk.YourService
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:25:9-27:19
+	android:exported
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:25:77-100
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:25:18-76
+meta-data#Start Service
+ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:26:13-76
+	android:value
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:26:53-73
+	android:name
+		ADDED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:26:24-52
+uses-sdk
+INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:7:5-9:41
+MERGED from [2nd Kibo Robot Programming Challenge:kibo_rpc_api:unspecified] C:\Users\spsyt\.android\build-cache\c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\spsyt\.android\build-cache\a10f29ac33f7f8be0dc734391293db4c1621fed9\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\spsyt\.android\build-cache\4620173005e25b983e64a785c265ce99dc16de95\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\spsyt\.android\build-cache\71a153053658c512216edc7f15017cac7969641a\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\spsyt\.android\build-cache\97e69547cce5b2fe9ed53d69d1983c3df5487937\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\d8ae256540ce0a8c5fafdc8e918df543e6f60bf6\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\b807e421a7dca183954350f577bd347502756adf\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\spsyt\.android\build-cache\aaad747c808bd071a93ad525d22c97fa8bd1e4c8\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\spsyt\.android\build-cache\fec70634598463aec1937ad238459c9bac2e17a1\output\AndroidManifest.xml:21:5-23:58
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\spsyt\.android\build-cache\afd5753ad129f4f02eff776d1ca6996264a9e8a8\output\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\spsyt\.android\build-cache\9ffc7db3d845dc3485723af521fdbcf5cb619db1\output\AndroidManifest.xml:5:5-7:41
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:8:5-10:41
+MERGED from [com.quickbirdstudios:opencv:3.4.4-contrib] C:\Users\spsyt\.android\build-cache\42d7c484b41aeae4454504e72b378cbca1396233\output\AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+		INJECTED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml
+receiver#gov.nasa.arc.astrobee.android.gs.InfoInqueryBroadcastReceiver
+ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:18:9-24:20
+	android:exported
+		ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:20:13-36
+	android:name
+		ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:19:13-89
+intent-filter#gov.nasa.arc.astrobee.android.gs.INFO_INQUIRY
+ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:21:13-23:29
+action#gov.nasa.arc.astrobee.android.gs.INFO_INQUIRY
+ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:22:17-88
+	android:name
+		ADDED from [2nd Kibo Robot Programming Challenge:guest_science_library:unspecified] C:\Users\spsyt\.android\build-cache\d3d4aac197df2972a72cb3215133e6d808cfca34\output\AndroidManifest.xml:22:25-85
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\spsyt\.android\build-cache\a10f29ac33f7f8be0dc734391293db4c1621fed9\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\spsyt\.android\build-cache\4620173005e25b983e64a785c265ce99dc16de95\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\spsyt\.android\build-cache\71a153053658c512216edc7f15017cac7969641a\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\spsyt\.android\build-cache\97e69547cce5b2fe9ed53d69d1983c3df5487937\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\d8ae256540ce0a8c5fafdc8e918df543e6f60bf6\output\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\spsyt\.android\build-cache\b807e421a7dca183954350f577bd347502756adf\output\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\spsyt\.android\build-cache\aaad747c808bd071a93ad525d22c97fa8bd1e4c8\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\spsyt\.android\build-cache\fec70634598463aec1937ad238459c9bac2e17a1\output\AndroidManifest.xml:26:9-28:38
+	android:value
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:28:13-35
+	android:name
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\spsyt\.android\build-cache\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\output\AndroidManifest.xml:27:13-51
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\spsyt\.android\build-cache\afd5753ad129f4f02eff776d1ca6996264a9e8a8\output\AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\spsyt\.android\build-cache\afd5753ad129f4f02eff776d1ca6996264a9e8a8\output\AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\spsyt\.android\build-cache\afd5753ad129f4f02eff776d1ca6996264a9e8a8\output\AndroidManifest.xml:26:13-58
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:12:22-78
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:13:5-76
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:13:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:14:5-76
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:14:22-73
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:16:5-78
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:16:22-75
+activity#org.ros.android.MasterChooser
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:21:9-24:45
+	android:label
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:23:13-45
+	android:launchMode
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:24:13-42
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:22:13-57
+service#org.ros.android.NodeMainExecutorService
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:26:9-32:19
+	tools:ignore
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:28:13-43
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:27:13-67
+intent-filter#org.ros.android.NodeMainExecutorService
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:29:13-31:29
+action#org.ros.android.NodeMainExecutorService
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\spsyt\.android\build-cache\c81c1d669201f3593f03f9e9504573f77d874c53\output\AndroidManifest.xml:30:25-79
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from E:\UwU Product\BCC & Earn Money\2nd Kibo Robot Programming Challenge\app\src\main\AndroidManifest.xml:2:1-31:12 reason: org.ros.android.android_10 requested WRITE_EXTERNAL_STORAGE
