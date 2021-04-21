@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: 2nd Kibo Robot Programming Challenge:kibo_rpc_api:unspecified@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c/output/jars/libs/ros-1.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c/output/jars/libs/ff_msgs-0.0.0.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c17aef16d6a1ec061ce61c668d8cc7dc4ee73d6c/output/jars/libs/api-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
