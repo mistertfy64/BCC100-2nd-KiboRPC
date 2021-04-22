@@ -105,17 +105,8 @@ public class YourService extends KiboRpcService {
         // Move to A'
         moveTo(pointAPrime, quaternionAPrime, 5, true);
 
-        // Turn on flashlight
-        api.flashlightControlFront(0.25f);
-
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException exception){
-            exception.printStackTrace();
-        }
-
-        // Turn off flashlight
-        api.flashlightControlFront(0f);
+        // Turn on/off flashlight
+        openFlashlight(0.25f, 1000);
 
         // B
         moveTo(pointB, quaternionBInverted, 5, true); // <----- ?
@@ -222,6 +213,25 @@ public class YourService extends KiboRpcService {
         return toReturn;
     }
 
+    /**
+     * Tries to openFlashlight.
+     * @param brightness flash light brightness between 0 - 1.
+     * @param flashlightMS The wait time before trun off flashlight.
+     */
+
+    public void openFlashlight(float brightness, long flashlightMS){
+        // Turn on flashlight
+        api.flashlightControlFront(brightness);
+
+        try {
+            Thread.sleep(flashlightMS);
+        } catch (InterruptedException exception){
+            exception.printStackTrace();
+        }
+
+        // Turn off flashlight
+        api.flashlightControlFront(0f);
+    }
 
 }
 
