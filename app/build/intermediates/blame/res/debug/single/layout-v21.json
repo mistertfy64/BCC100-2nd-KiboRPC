@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\7b91075d64fb36bcf4308493cd2b774830392f29\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\fec70634598463aec1937ad238459c9bac2e17a1\\output\\res\\layout-v21\\notification_template_icon_group.xml"
     },
@@ -12,7 +16,19 @@
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\fec70634598463aec1937ad238459c9bac2e17a1\\output\\res\\layout-v21\\notification_action.xml"
     },
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\7b91075d64fb36bcf4308493cd2b774830392f29\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\7b91075d64fb36bcf4308493cd2b774830392f29\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\fec70634598463aec1937ad238459c9bac2e17a1\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\7b91075d64fb36bcf4308493cd2b774830392f29\\output\\res\\layout-v21\\notification_action.xml"
     }
 ]

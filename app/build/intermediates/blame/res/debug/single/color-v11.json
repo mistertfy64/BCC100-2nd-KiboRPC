@@ -4,7 +4,15 @@
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
     },
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     }
 ]

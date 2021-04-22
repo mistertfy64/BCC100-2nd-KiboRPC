@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
+        "source": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher_round.png",
+        "source": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
         "source": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     },
