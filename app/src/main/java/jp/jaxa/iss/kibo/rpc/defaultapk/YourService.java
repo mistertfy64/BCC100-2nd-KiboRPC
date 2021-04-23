@@ -1,10 +1,20 @@
 package jp.jaxa.iss.kibo.rpc.defaultapk;
 
 import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.json.*;
 
+import java.time.LocalDateTime;
+
 import gov.nasa.arc.astrobee.Result;
+
 import gov.nasa.arc.astrobee.types.Point;
 import gov.nasa.arc.astrobee.types.Quaternion;
 import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
@@ -14,6 +24,9 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
  */
 
 public class YourService extends KiboRpcService {
+
+    private final long MILLISECONDS_IN_A_SECOND = 1000;
+    long timeStarted;
 
     @Override
     protected void runPlan1(){
@@ -29,14 +42,24 @@ public class YourService extends KiboRpcService {
         Quaternion quaternionBInverted = new Quaternion(0f, 0f, 0.707f, 0.707f);
 
         // Start
+
+        Log.d("", "Starting Mission...");
+        timeStarted = System.currentTimeMillis();
         api.startMission();
+        Log.d(getElapsedTime(), "Started Mission!");
+
+
 
         // Move to first pos (Step 1)
         moveTo(pointA, quaternionA, 5, true);
 
+
+        // Turn on/off flashlight
+        openFlashlight(0.25f, 1000);
+
         // (read QR, move to Point-A’, read AR and aim the target) (Step 2)
         Bitmap image = api.getBitmapNavCam();
-        String content = readQR(image);
+        String content = readQRCode(image, 5);
         api.sendDiscoveredQR(content);
 
         float[] infoOfAPrime = parseQRCodeContent(content);
@@ -98,6 +121,13 @@ public class YourService extends KiboRpcService {
         };
 
 
+        int keepOutAreaNumber = (int) infoOfAPrime[0];
+
+        for (int i = 0; i < 8; i++){
+
+        }
+
+
         // A'
         Point pointAPrime = new Point(infoOfAPrime[1], infoOfAPrime[2],infoOfAPrime[3]);
         Quaternion quaternionAPrime = new Quaternion(infoOfAPrime[4], infoOfAPrime[5], infoOfAPrime[6], infoOfAPrime[7]);
@@ -105,8 +135,7 @@ public class YourService extends KiboRpcService {
         // Move to A'
         moveTo(pointAPrime, quaternionAPrime, 5, true);
 
-        // Turn on/off flashlight
-        openFlashlight(0.25f, 1000);
+
 
         // B
         moveTo(pointB, quaternionBInverted, 5, true); // <----- ?
@@ -132,26 +161,48 @@ public class YourService extends KiboRpcService {
      * @param printRobotPosition Whether to print the robot's position.
      */
     private void moveTo(Point point, Quaternion quaternion, int attempts, boolean printRobotPosition){
+        long startTime = System.currentTimeMillis();
+        
+        Log.d(getElapsedTime(), "moveTo() called!, attempting " + attempts + " times to move from current position to " + point + " and aligning to " + quaternion + ".");
+        
         int iterations = 0;
+        
+        Log.d(getElapsedTime(), "Attempt " + (iterations+1) + " of " + attempts + " to move from current position to " + point + " and aligning to " + quaternion + ".");
+        
         Result result = api.moveTo(point, quaternion, printRobotPosition);
         ++iterations;
+        
         while (!result.hasSucceeded() && iterations < attempts){
+            Log.d(getElapsedTime(), "Attempt " + (iterations+1) + " of " + attempts + " to move from current position to " + point + " and aligning to " + quaternion + ".");
             result = api.moveTo(point, quaternion, printRobotPosition);
             ++iterations;
         }
+        
+        if (result.hasSucceeded()){
+            Log.d(getElapsedTime(), "Successfully moved to " + point + " and aligned to " + quaternion + " in " + (iterations+1) + " attempts taking "+ calculateTime(startTime) + "!");
+        } else {
+            Log.d(getElapsedTime(), "Failed to move to " + point + " and aligning to " + quaternion + "!");
+        }
     }
+    
+    private String readQRCode(Bitmap image, int attempts){
 
+        Log.d(getElapsedTime(), "readQRCode() called!");
+        
+        com.google.zxing.Result result = null;
 
-    private void moveTo(double pointX, double pointY, double pointZ, float quaternionX, float quaternionY, float quaternionZ, float quaternionW, boolean printRobotPos){
-        Point point = new Point(pointX, pointY, pointZ);
-        Quaternion quaternion = new Quaternion(quaternionX, quaternionY, quaternionZ, quaternionW);
-        api.moveTo(point, quaternion, printRobotPos);
-    }
+        int[] intArray = new int[image.getWidth() * image.getHeight()];
 
+        image.getPixels(intArray, 0, image.getWidth(), 0, 0 , image.getWidth(), image.getHeight());
+        com.google.zxing.BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(new RGBLuminanceSource(image.getWidth(), image.getHeight(), intArray)));
 
-    private String readQR(Bitmap image){
-        String code = null;//Noting yet for now
-        return code;
+        try {
+            result = new QRCodeReader().decode(binaryBitmap);
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
+
+        return result.getText();
     }
 
     /**
@@ -161,6 +212,8 @@ public class YourService extends KiboRpcService {
      * @param delay The wait time between the attempts.
      */
     private void tryToReportMissionCompletion(int attempts, long delay){
+
+        Log.d(getElapsedTime(), "tryToReportMissionCompletion() called!, attempting " + attempts + "times to report mission completion while waiting " + delay + "milliseconds between each call.");
 
         for (int a = 0; a < attempts; a++){
 
@@ -173,10 +226,13 @@ public class YourService extends KiboRpcService {
 
             // Report
             if (api.reportMissionCompletion()){
+                Log.d(getElapsedTime(), "Successfully reported mission completion after " + a+1 + " times!");
                 return;
             }
 
         }
+
+        Log.d(getElapsedTime(), "Failed to report mission completion in " + attempts + "attempts!");
 
     }
 
@@ -220,6 +276,9 @@ public class YourService extends KiboRpcService {
      */
 
     public void openFlashlight(float brightness, long flashlightMS){
+
+        Log.d(getElapsedTime(), "openFlashlight() called!, setting the front flashlight brightness to " + brightness + " for " + flashlightMS + "milliseconds.");
+
         // Turn on flashlight
         api.flashlightControlFront(brightness);
 
@@ -233,5 +292,22 @@ public class YourService extends KiboRpcService {
         api.flashlightControlFront(0f);
     }
 
+
+    /**
+     * Gets the time elapsed since starting the mission.
+     * @return The time passed since starting the mission.
+     */
+    private String getElapsedTime(){
+        return ((System.currentTimeMillis() - timeStarted) / MILLISECONDS_IN_A_SECOND) + "s";
+    }
+
+    /**
+     * TODO: fill this
+     * @param startTime
+     * @return
+     */
+    private String calculateTime(long startTime){
+        return ((System.currentTimeMillis() - startTime) / MILLISECONDS_IN_A_SECOND) + "s";
+    }
 }
 

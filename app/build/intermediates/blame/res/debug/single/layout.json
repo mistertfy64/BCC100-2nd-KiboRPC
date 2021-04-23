@@ -52,6 +52,10 @@
         "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout\\zxing_barcode_scanner.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\layout\\zxing_barcode_scanner.xml"
+    },
+    {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
         "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\layout\\abc_screen_simple.xml"
     },
@@ -254,6 +258,10 @@
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
         "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout\\zxing_capture.xml",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\layout\\zxing_capture.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",

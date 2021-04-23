@@ -804,6 +804,82 @@
                         "endOffset": 2210
                     }
                 }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2215,
+                    "endColumn": 58,
+                    "endOffset": 2269
+                },
+                "from": {
+                    "file": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\values-nl\\values-nl.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 58,
+                        "endOffset": 109
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2274,
+                    "endColumn": 46,
+                    "endOffset": 2316
+                },
+                "from": {
+                    "file": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\values-nl\\values-nl.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 114,
+                        "endColumn": 46,
+                        "endOffset": 156
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2321,
+                    "endColumn": 150,
+                    "endOffset": 2467
+                },
+                "from": {
+                    "file": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\values-nl\\values-nl.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 161,
+                        "endColumn": 150,
+                        "endOffset": 307
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2472,
+                    "endColumn": 111,
+                    "endOffset": 2579
+                },
+                "from": {
+                    "file": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\values-nl\\values-nl.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 312,
+                        "endColumn": 111,
+                        "endOffset": 419
+                    }
+                }
             }
         ]
     }
