@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.android/build-cache/3d1f8281b702ec7358369b73e3f74712b1803654/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/26.1.0/8279b00f5194701ff18363fa2958c5a26670b0ef/support-fragment-26.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

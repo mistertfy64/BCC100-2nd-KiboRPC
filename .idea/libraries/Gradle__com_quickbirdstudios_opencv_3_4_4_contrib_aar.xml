@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.android/build-cache/5609bb914a5b5b7c3ee1c6ac151c528812a35a6d/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.quickbirdstudios/opencv/3.4.4-contrib/cd2c9c58692b78eec9e13ff5d2ffa32a5f0ba4fc/opencv-3.4.4-contrib-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

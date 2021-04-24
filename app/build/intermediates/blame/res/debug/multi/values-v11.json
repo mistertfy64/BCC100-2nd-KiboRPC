@@ -990,27 +990,6 @@
                         "endOffset": 14072
                     }
                 }
-            },
-            {
-                "to": {
-                    "startLine": 192,
-                    "startColumn": 4,
-                    "startOffset": 14077,
-                    "endLine": 193,
-                    "endColumn": 10,
-                    "endOffset": 14172
-                },
-                "from": {
-                    "file": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\values-v11\\values-v11.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endLine": 3,
-                        "endColumn": 10,
-                        "endOffset": 150
-                    }
-                }
             }
         ]
     }
