@@ -312,21 +312,6 @@ public class YourService extends KiboRpcService {
     }
 
     /**
-     * Tries to openFlashlight.
-     * @param brightness flash light brightness between 0 - 1.
-     * @param flashlightMS The wait time before trun off flashlight.
-     */
-
-    public void openFlashlight(float brightness, long flashlightMS){
-
-        logMessage("openFlashlight() called!, setting the front flashlight brightness to " + brightness + " for " + flashlightMS + "milliseconds.");
-
-        // Turn on flashlight
-
-    }
-
-
-    /**
      * Gets the time elapsed since starting the mission.
      * @return The time passed since starting the mission.
      */
@@ -336,8 +321,8 @@ public class YourService extends KiboRpcService {
 
     /**
      * TODO: fill this
-     * @param startTime
-     * @return
+     * @param startTime start Time
+     * @return Time
      */
     private String calculateTime(long startTime){
         return Long.toString(((System.currentTimeMillis() - startTime) / MILLISECONDS_IN_A_SECOND));
