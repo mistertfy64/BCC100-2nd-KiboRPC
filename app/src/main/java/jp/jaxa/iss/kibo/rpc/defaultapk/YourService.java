@@ -5,22 +5,16 @@ import android.util.Log;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.json.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.time.LocalDateTime;
 
 import gov.nasa.arc.astrobee.Result;
-
 import gov.nasa.arc.astrobee.types.Point;
 import gov.nasa.arc.astrobee.types.Quaternion;
 import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
@@ -32,7 +26,7 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 public class YourService extends KiboRpcService {
 
     private final long MILLISECONDS_IN_A_SECOND = 1000;
-    long timeStarted;
+    private long timeStarted;
 
     @Override
     protected void runPlan1(){
