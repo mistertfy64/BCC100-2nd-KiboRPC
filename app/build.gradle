@@ -52,4 +52,5 @@ dependencies {
     compile 'com.quickbirdstudios:opencv:3.4.4-contrib'
     compile "com.google.zxing:core:3.3.0"
     compile 'com.google.zxing:javase:3.3.0'
+    compile 'commons-codec:commons-codec:1.15'
 }

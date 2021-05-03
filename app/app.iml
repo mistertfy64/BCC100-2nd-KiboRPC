@@ -119,6 +119,7 @@
     <orderEntry type="library" exported="" name="Gradle: com.android.support:support-compat:26.1.0@aar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:com.springsource.org.apache.commons.io:1.4.0@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:animated-vector-drawable:26.1.0@aar" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: commons-codec:commons-codec:1.15@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: BCC100:guest_science_library:unspecified@aar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:com.springsource.org.apache.commons.logging:1.1.1@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-pool:commons-pool:1.6@jar" level="project" />
