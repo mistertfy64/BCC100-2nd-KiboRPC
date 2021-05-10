@@ -439,13 +439,13 @@ public class YourService extends KiboRpcService {
 
         switch (keepOutAreaPattern){
             case 1:{
-                return new Point(tx+offsetCoefficient*offset, ty+offsetCoefficient*offset, tz);
+                return new Point(tx+offsetCoefficient*offset, ty+offsetCoefficient*offset, cz);
             }
             case 2:{
-                return new Point(tx, ty+offsetCoefficient*offset, tz+offsetCoefficient*offset/2);
+                return new Point(tx, ty+offsetCoefficient*offset, cz);
             }
             case 3:{
-                return new Point(tx-offsetCoefficient*offset, ty+offsetCoefficient*offset, tz);
+                return new Point(tx-offsetCoefficient*offset, ty+offsetCoefficient*offset, cz);
             }
             case 4:{
                 return new Point(tx, ty+offsetCoefficient*offset, tz);
