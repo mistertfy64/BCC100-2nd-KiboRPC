@@ -50,7 +50,7 @@ public class YourService extends KiboRpcService {
     long timeStarted;
     int timesCalled = 0;
     float tx = 0, ty = 0, tz = 0;
-    float offset = 0.555f;
+    float offset = 0.427f;
     int offsetCoefficient = 3;
     final float PI = 3.1415f;
 
@@ -439,13 +439,13 @@ public class YourService extends KiboRpcService {
 
         switch (keepOutAreaPattern){
             case 1:{
-                return new Point(tx+offsetCoefficient*offset, ty+offsetCoefficient*offset, cz);
+                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
             }
             case 2:{
-                return new Point(tx, ty+offsetCoefficient*offset, cz);
+                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
             }
             case 3:{
-                return new Point(tx-offsetCoefficient*offset, ty+offsetCoefficient*offset, cz);
+                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
             }
             case 4:{
                 return new Point(tx, ty+offsetCoefficient*offset, tz);
@@ -490,13 +490,13 @@ public class YourService extends KiboRpcService {
         Quaternion startQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
         switch (keepOutAreaPattern) {
             case 1: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(-3.4375f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(45f)));
             }
             case 2: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(-6.875f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0)));
             }
             case 3: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(-13.75f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-45f)));
             }
             case 4: {
                 break;
