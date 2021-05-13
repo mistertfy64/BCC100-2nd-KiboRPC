@@ -50,7 +50,7 @@ public class YourService extends KiboRpcService {
     long timeStarted;
     int timesCalled = 0;
     float tx = 0, ty = 0, tz = 0;
-    float offset = 0.427f;
+    float offset = 0.4270f;
     int offsetCoefficient = 3;
     final float PI = 3.1415f;
 
