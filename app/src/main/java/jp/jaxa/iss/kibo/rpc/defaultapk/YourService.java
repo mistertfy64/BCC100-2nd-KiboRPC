@@ -94,7 +94,11 @@ public class YourService extends KiboRpcService {
             moveAndAlignTo(pointA, quaternionA, 5, true); // REMOVE THIS IF IT DOESN'T WORK
             image = cropImage(api.getBitmapNavCam(), 589,573,852-589,836-573);
             content = readQRCode(image, 5);
-            api.sendDiscoveredQR(content);
+            if (content.equals("")) {
+                moveAndAlignTo(pointA, quaternionA, 5, true); // REMOVE THIS IF IT DOESN'T WORK
+                image = cropImage(api.getBitmapNavCam(), 589, 573, 852 - 589, 836 - 573);
+                content = readQRCode(image, 5);
+            }
         } else {
             api.sendDiscoveredQR(content);
         }
@@ -210,20 +214,6 @@ public class YourService extends KiboRpcService {
         logMessage("readQRCode() called!");
 
         com.google.zxing.Result result = null;
-
-        /*
-        if (timesCalled == 1){
-            logMessage("(FIRST ITERATION) Original Image's Base64 encoding is: ");
-            logMessage("================================================================================= START OF ORIGINAL IMAGE BASE64 ENCODING TEXT (1st) =================================================================================");
-            logBase64Data(encodeImageToBase64(image), 4000);
-            logMessage("================================================================================== END OF ORIGINAL IMAGE BASE64 ENCODING TEXT (1st)  =================================================================================");
-        } else {
-            logMessage("(SECOND ITERATION) Original Image's Base64 encoding is: ");
-            logMessage("================================================================================= START OF ORIGINAL IMAGE BASE64 ENCODING TEXT (2nd) =================================================================================");
-            logBase64Data(encodeImageToBase64(image), 4000);
-            logMessage("================================================================================== END OF ORIGINAL IMAGE BASE64 ENCODING TEXT  (2nd) =================================================================================");
-        }
-        */
 
         while (result == null && iterations < attempts) {
 
@@ -439,16 +429,16 @@ public class YourService extends KiboRpcService {
 
         switch (keepOutAreaPattern){
             case 1:{
-                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
+                return new Point(tx, ty, tz-offset);
             }
             case 2:{
-                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
+                return new Point(tx, ty, tz-offset);
             }
             case 3:{
-                return new Point(tx, ty, tz-offsetCoefficient*offset/offsetCoefficient);
+                return new Point(tx, ty, tz-offset);
             }
             case 4:{
-                return new Point(tx, ty+offsetCoefficient*offset, tz);
+                return new Point(tx, ty, tz-offset);
             }
             case 5:{
                 break;
@@ -460,7 +450,7 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 8:{
-                break;
+                return new Point(tx, ty, tz-offset);
             }
 
         }
@@ -471,35 +461,20 @@ public class YourService extends KiboRpcService {
 
     // TODO: FIX THIS
     private Quaternion calculateQuaternionAPrimePrime(int keepOutAreaPattern) {
-        /*
-        float o1 = 0.108f, o2 = 0.418f, o3 = 0.570f, o4 = 0.699f, e1 = 0.000f, e2 = 0.500f, e3 = 0.707f;
-        float[][] possibleQuaternions = new float[][]{{o1, -1*o2, o3, o4}, {0f, -0.609f, 0, 0.793f}, {-1*o1, o2, o3, o4}, {e2, e2, -1*e2, e2}, {o2, o1, -1*o4, o3}, {e1, e1, -1*e3, e3}, {-1*o2, -1*o1, -1*o4, o3}, {e2, -1*e2, -1*e2,- 1*e2}};
-        return new Quaternion(possibleQuaternions[keepOutAreaPattern-1][0], possibleQuaternions[keepOutAreaPattern-1][1], possibleQuaternions[keepOutAreaPattern-1][2], possibleQuaternions[keepOutAreaPattern-1][3]);
-        */
 
-        // KOZP1 = (qx, qy, qz, qw)
-        // KOZP2 = (qx, qy, qz, qw)
-        // KOZP3 = (qx, qy, qz, qw)
-        // KOZP4 = (qx, qy, qz, qw)
-        // KOZP5 = (qx, qy, qz, qw)
-        // KOZP6 = (qx, qy, qz, qw)
-        // KOZP7 = (qx, qy, qz, qw)
-        // KOZP8 = (qx, qy, qz, qw)
-        
-        
         Quaternion startQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
         switch (keepOutAreaPattern) {
             case 1: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(45f)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(15f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0f)));
             }
             case 2: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0f)));
             }
             case 3: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-45f)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-15f)));
             }
             case 4: {
-                break;
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-21.25f), convertDegreesToRadians(75f)));
             }
             case 5: {
                 break;
@@ -511,7 +486,7 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 8: {
-                break;
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-21.25f), convertDegreesToRadians(-75f)));
             }
         }
         // at least it tried so we have a 0.00000000000000000000000001% chance of getting a non-zero score but this shouldnt happen
