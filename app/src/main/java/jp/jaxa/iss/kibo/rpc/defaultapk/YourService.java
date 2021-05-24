@@ -98,7 +98,9 @@ public class YourService extends KiboRpcService {
                 moveAndAlignTo(pointA, quaternionA, 5, true); // REMOVE THIS IF IT DOESN'T WORK
                 image = cropImage(api.getBitmapNavCam(), 589, 573, 852 - 589, 836 - 573);
                 content = readQRCode(image, 5);
+                api.sendDiscoveredQR(content);
             }
+            api.sendDiscoveredQR(content);
         } else {
             api.sendDiscoveredQR(content);
         }
