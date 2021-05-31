@@ -1,41 +1,25 @@
 package jp.jaxa.iss.kibo.rpc.defaultapk;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.os.StrictMode;
 import android.os.SystemClock;
 import android.util.Base64;
 import android.util.Log;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.ArrayTable;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.google.zxing.qrcode.encoder.QRCode;
 
-import org.apache.commons.codec.binary.StringUtils;
-import org.json.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 import gov.nasa.arc.astrobee.Kinematics;
 import gov.nasa.arc.astrobee.Result;
-
 import gov.nasa.arc.astrobee.types.Point;
 import gov.nasa.arc.astrobee.types.Quaternion;
 import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
@@ -46,13 +30,27 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 
 public class YourService extends KiboRpcService {
 
+
+    // FEEL FREE TO EDIT
+
+    // Whether to send log messages. Set it to true to enable logging, which takes more time. Set it to false to disable logging, which takes less time. Default value is true.
+    final boolean LOG_MESSAGES = true;
+    // The offset coefficient.
+    final int DEFAULT_OFFSET_COEFFICIENT = 3;
+    // The offset.
+    final float OFFSET = 0.4270f;
+
+
+    // DO NOT EDIT
+
     final long MILLISECONDS_IN_A_SECOND = 1000;
     long timeStarted;
     int timesCalled = 0;
     float tx = 0, ty = 0, tz = 0;
-    float offset = 0.4270f;
-    int offsetCoefficient = 3;
+    float[] infoOfAPrime;
     final float PI = 3.1415f;
+    float distanceFromTargetToRobot = 0;
+
 
     @Override
     protected void runPlan1() {
@@ -67,14 +65,11 @@ public class YourService extends KiboRpcService {
         Point pointB = new Point(10.6f, -8.0f, 4.5f);
         Quaternion quaternionB = new Quaternion(0f, 0f, -0.707f, 0.707f);
 
-        Quaternion quaternionBInverted = new Quaternion(0f, 0f, 0.707f, -0.707f);
 
-        // Start
 
-        Log.d("", "Starting Mission...");
         timeStarted = System.currentTimeMillis();
         api.startMission();
-        Log.d("Te = " + getElapsedTime(), "Started Mission!");
+
 
 
 
@@ -99,8 +94,9 @@ public class YourService extends KiboRpcService {
                 image = cropImage(api.getBitmapNavCam(), 589, 573, 852 - 589, 836 - 573);
                 content = readQRCode(image, 5);
                 api.sendDiscoveredQR(content);
+            } else {
+                api.sendDiscoveredQR(content);
             }
-            api.sendDiscoveredQR(content);
         } else {
             api.sendDiscoveredQR(content);
         }
@@ -120,13 +116,14 @@ public class YourService extends KiboRpcService {
         api.flashlightControlBack(0f);
 
 
-        float[] infoOfAPrime = parseQRCodeContent(content);
+        infoOfAPrime = parseQRCodeContent(content);
 
         int keepOutAreaPattern = (int) infoOfAPrime[0];
         tx = infoOfAPrime[1];
         ty = infoOfAPrime[2];
         tz = infoOfAPrime[3];
 
+        /*
         // A'
         Point pointAPrime = new Point(infoOfAPrime[1], infoOfAPrime[2], infoOfAPrime[3]);
         Quaternion quaternionAPrime = new Quaternion(infoOfAPrime[4], infoOfAPrime[5], infoOfAPrime[6], infoOfAPrime[7]);
@@ -135,6 +132,16 @@ public class YourService extends KiboRpcService {
         Point pointAPrimePrime = calculatePointAPrimePrime((int) infoOfAPrime[0]);
         Quaternion quaternionAPrimePrime = calculateQuaternionAPrimePrime((int) infoOfAPrime[0]);
 
+        */
+
+        float initialDistanceFromTargetToRobot = (float) Math.abs(pointA.getZ() - infoOfAPrime[3]);
+        distanceFromTargetToRobot = initialDistanceFromTargetToRobot / 4;
+
+
+        moveAndAlignTo(new Point(tx, ty, tz+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
+        moveAndAlignToTarget((int) infoOfAPrime[0]);
+
+        /*
         if ((1 <= keepOutAreaPattern && keepOutAreaPattern <= 4) || keepOutAreaPattern == 8) {
             // Pattern is 1, 3, 4 or 8
             // Move and align to A''
@@ -147,19 +154,18 @@ public class YourService extends KiboRpcService {
             moveAndAlignTo(api.getRobotKinematics().getPosition(), quaternionAPrimePrime, 5, true);
             // Pattern is 5, 6 or 7
 
-        }
+        }*/
 
 
 
         // Turn on laser
         api.laserControl(true);
 
-        takeSnapshot();
+        api.takeSnapshot();
 
         api.laserControl(false);
 
         // B
-        moveAndAlignTo(pointB, quaternionBInverted, 5, true); // <----- ?
         moveAndAlignTo(pointB, quaternionB, 5, true);
 
         // Finished
@@ -182,30 +188,32 @@ public class YourService extends KiboRpcService {
      * @param quaternion         The rotation to align to.
      * @param attempts           The number of attempts.
      * @param printRobotPosition Whether to print the robot's position.
+     * @return                   true if the robot can successfully move and align to the position in the specified number of attempts, false if otherwise.
      */
-    private void moveAndAlignTo(Point point, Quaternion quaternion, int attempts, boolean printRobotPosition) {
+    private boolean moveAndAlignTo(Point point, Quaternion quaternion, int attempts, boolean printRobotPosition) {
+
         long startTime = System.currentTimeMillis();
 
-        logMessage("moveTo() called!, attempting " + attempts + " times to move from current position to " + point + " and aligning to " + quaternion + ".");
+        logMessage("[METHOD INVOCATION] moveAndAlignTo() called! The robot will now attempt " + attempts + " times to move to " + point + " and rotate to " + quaternion + ".");
 
         int iterations = 0;
 
-        logMessage("Attempt " + (iterations + 1) + " of " + attempts + " to move from current position to " + point + " and aligning to " + quaternion + ".");
 
-        Result result = api.moveTo(point, quaternion, printRobotPosition);
-        ++iterations;
-
-        while (!result.hasSucceeded() && iterations < attempts) {
-            logMessage("Attempt " + (iterations + 1) + " of " + attempts + " to move from current position to " + point + " and aligning to " + quaternion + ".");
-            result = api.moveTo(point, quaternion, printRobotPosition);
+        while (iterations < attempts) {
+            logMessage("[ATTEMPT " + (iterations+1) + "/" + attempts + "] Attempt " + (iterations+1) + " of " + attempts + " to move from the robot's current position to " + point + " and aligning to " + quaternion + ".");
+            Result result = api.moveTo(point, quaternion, printRobotPosition);
             ++iterations;
+
+            if (result.hasSucceeded()) {
+                logMessage("[PASS] Successfully moved to " + point + " and aligned to " + quaternion + " in " + (iterations + 1) + " attempt(s) taking " + calculateTime(startTime) + " seconds!");
+                return true;
+            }
         }
 
-        if (result.hasSucceeded()) {
-            logMessage("Successfully moved to " + point + " and aligned to " + quaternion + " in " + (iterations + 1) + " attempt(s) taking " + calculateTime(startTime) + " seconds!");
-        } else {
-            logMessage("Failed to move to " + point + " and aligning to " + quaternion + "!");
-        }
+
+        logMessage("[FAIL] Failed to move to " + point + " and aligning to " + quaternion + "!");
+        return false;
+
     }
 
     private String readQRCode(Bitmap image, int attempts) {
@@ -213,7 +221,7 @@ public class YourService extends KiboRpcService {
         timesCalled++;
 
         int iterations = 0;
-        logMessage("readQRCode() called!");
+        logMessage("[METHOD INVOCATION] readQRCode() called! The robot will not attempt " + attempts + " times to read a visible QR code.");
 
         com.google.zxing.Result result = null;
 
@@ -225,7 +233,7 @@ public class YourService extends KiboRpcService {
 
             try {
                 result = new QRCodeReader().decode(imageToRead);
-                logMessage("QR code successfully read in " + (iterations + 1) + " attempt(s)! The QR Code scanned returned this: " + result);
+                logMessage("[PASS] QR code successfully read in " + (iterations + 1) + " attempt(s)! The QR Code scanned returned this: " + result);
                 return result.getText();
             } catch (Exception exception) {
                 StringWriter stringWriter = new StringWriter();
@@ -236,7 +244,7 @@ public class YourService extends KiboRpcService {
             ++iterations;
         }
 
-        logException("Unable to read QR Code in " + attempts + " attempts! Returning an empty string...");
+        logException("[FAIL] Unable to read QR Code in " + attempts + " attempts! Returning an empty string...");
         return "";
 
     }
@@ -250,7 +258,7 @@ public class YourService extends KiboRpcService {
      */
     private void tryToReportMissionCompletion(float attempts, long delay) {
 
-        logMessage("tryToReportMissionCompletion() called!, attempting " + attempts + "times to report mission completion while waiting " + delay + "milliseconds between each call.");
+        logMessage("[METHOD INVOCATION] tryToReportMissionCompletion() called!, The robot will now attempt " + attempts + "times to report mission completion while waiting " + delay + "milliseconds between each call.");
 
         for (int a = 0; a < attempts; a++) {
 
@@ -266,13 +274,13 @@ public class YourService extends KiboRpcService {
             // Report
             boolean reportMissionCompletionSuccess = api.reportMissionCompletion();
             if (reportMissionCompletionSuccess) {
-                logMessage("Successfully reported mission completion after " + (a + 1) + " attempt(s)!");
+                logMessage("[PASS] Successfully reported mission completion after " + (a + 1) + " attempt(s)!");
                 return;
             }
 
         }
 
-        logMessage("Failed to report mission completion in " + attempts + "attempt(s)!");
+        logMessage("[FAIL] Failed to report mission completion in " + attempts + "attempt(s)!");
 
     }
 
@@ -325,7 +333,9 @@ public class YourService extends KiboRpcService {
      * @param message The message
      */
     private void logMessage(String message) {
-        Log.d("Te = " + getElapsedTime() + "s", message);
+        if (LOG_MESSAGES){
+            Log.d("Te = " + getElapsedTime() + "s", message);
+        }
     }
 
     /**
@@ -334,7 +344,9 @@ public class YourService extends KiboRpcService {
      * @param message The exception's message.
      */
     private void logException(String message) {
-        Log.e("[!!!] Te = " + getElapsedTime() + "s", message);
+        if (LOG_MESSAGES){
+            Log.e("[!!!] Te = " + getElapsedTime() + "s", message);
+        }
     }
 
     private Bitmap cropImage(Bitmap image, int x, int y, int w, int h) {
@@ -414,33 +426,33 @@ public class YourService extends KiboRpcService {
         float cy = (float) kinematics.getPosition().getY();
         float cz = (float) kinematics.getPosition().getZ();
 
-        // tx = target x, ty = target y, tz = target z, mo = offsetCoefficient*offset
+        // tx = target x, ty = target y, tz = target z, mo = DEFAULT_OFFSET_COEFFICIENT*OFFSET
         // cx, cy, cz = ROBOT'S current position
 
-        // KOZP1 = (tx+offsetCoefficient*offset, ty+offsetCoefficient*offset, tz)
-        // KOZP2 = (tx, ty+offsetCoefficient*offset, tz)
-        // KOZP3 = (tx-offsetCoefficient*offset, ty+offsetCoefficient*offset, tz)
-        // KOZP4 = (tx, ty+offsetCoefficient*offset, tz)
+        // KOZP1 = (tx+DEFAULT_OFFSET_COEFFICIENT*OFFSET, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
+        // KOZP2 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
+        // KOZP3 = (tx-DEFAULT_OFFSET_COEFFICIENT*OFFSET, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
+        // KOZP4 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
         // KOZP5 = (tx, ty, tz)
         // KOZP6 = (tx, ty, tz)
         // KOZP7 = (tx, ty, tz)
-        // KOZP8 = (tx, ty+offsetCoefficient*offset, tz)
+        // KOZP8 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
 
         // x is lower <-------------------> x is higher
 
-
+/*
         switch (keepOutAreaPattern){
             case 1:{
-                return new Point(tx, ty, tz-offset);
+                return new Point(tx+OFFSET, ty, tz-OFFSET);
             }
             case 2:{
-                return new Point(tx, ty, tz-offset);
+                return new Point(tx, ty, tz-OFFSET);
             }
             case 3:{
-                return new Point(tx, ty, tz-offset);
+                return new Point(tx, ty, tz-OFFSET);
             }
             case 4:{
-                return new Point(tx, ty, tz-offset);
+                return new Point(tx+OFFSET, ty, tz-OFFSET);
             }
             case 5:{
                 break;
@@ -452,12 +464,14 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 8:{
-                return new Point(tx, ty, tz-offset);
+                return new Point(tx+OFFSET, ty, tz-OFFSET);
             }
 
         }
+        */
 
-        return new Point(x, y, z);
+
+        return rotateRobotByPoint(new Point(11.21f, -9.8f, 4.79f), keepOutAreaPattern > 1 ? convertDegreesToRadians((keepOutAreaPattern-2)*45) : convertDegreesToRadians(315), infoOfAPrime[1], infoOfAPrime[3]);
     }
 
 
@@ -476,7 +490,7 @@ public class YourService extends KiboRpcService {
                 return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-15f)));
             }
             case 4: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-21.25f), convertDegreesToRadians(75f)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(0f), convertDegreesToRadians(90f)));
             }
             case 5: {
                 break;
@@ -488,7 +502,7 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 8: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-21.25f), convertDegreesToRadians(-75f)));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-90f)));
             }
         }
         // at least it tried so we have a 0.00000000000000000000000001% chance of getting a non-zero score but this shouldnt happen
@@ -576,10 +590,43 @@ public class YourService extends KiboRpcService {
         return encoded;
     }
 
-    private void takeSnapshot(){
-        logMessage("takeSnapshot() called! Taking snapshots.");
-        api.takeSnapshot();
+    /**
+     * Not going to implement 3D.
+     * https://math.stackexchange.com/questions/270194/how-to-find-the-vertices-angle-after-rotation
+     * @param startingPoint
+     * @param centerX
+     * @param centerZ
+     * @return
+     */
+    private Point rotateRobotByPoint(Point startingPoint, float angle, float centerX, float centerZ){
+        float currentX = (float) startingPoint.getX();
+        float currentZ = (float) startingPoint.getZ();
+        return new Point((float) (currentX-centerX)*Math.cos(angle)-(currentZ-centerZ)*Math.sin(angle)+centerX, (float) startingPoint.getY(),(float) (currentX-centerX)*Math.sin(angle)+(currentZ-centerZ)*Math.cos(angle)+centerZ);
     }
+
+    private void moveAndAlignToTarget(int keepOutAreaPattern){
+        if (3 <= keepOutAreaPattern && keepOutAreaPattern <= 6){
+            for (int i = keepOutAreaPattern; i <= keepOutAreaPattern; i++){
+                if (i == 3){
+                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()-distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
+                } else if (i == 6){
+                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()+distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
+                } else {
+                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX(), api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
+                }
+            }
+        } else if (keepOutAreaPattern == 1 ||  keepOutAreaPattern >= 7) {
+            for (int i = keepOutAreaPattern == 1 ? 9: keepOutAreaPattern; i >= keepOutAreaPattern; i--){
+                if (i==9){
+                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()+distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
+                } else {
+                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX(), api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
+                }
+            }
+        }
+        moveAndAlignTo(api.getRobotKinematics().getPosition(), calculateQuaternionAPrimePrime(keepOutAreaPattern), 5, true);
+    }
+
 
 }
 

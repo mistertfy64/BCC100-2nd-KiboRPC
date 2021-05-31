@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.android.support:support-fragment:26.1.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/3d1f8281b702ec7358369b73e3f74712b1803654/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/3d1f8281b702ec7358369b73e3f74712b1803654/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/8ff5f284c06217e0fa7d75a56e13a93d941e7115/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/8ff5f284c06217e0fa7d75a56e13a93d941e7115/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -21,24 +21,24 @@ ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManif
 		ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.WAKE_LOCK
 ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:7:5-67
-MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:15:5-68
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:15:5-68
 	android:name
 		ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:7:22-65
 application
 ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:9:5-29:19
 MERGED from [BCC100:guest_science_library:unspecified] C:\Users\thath\.android\build-cache\1f31d6e0d1fdbee7f27b44fb10d2ef92e8921fc1\output\AndroidManifest.xml:11:5-25:19
-MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\7f0ac16af10df2573f606e29a71b7eb3bc341692\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\bcb7e28603cb6171595b78da10b6608f09dc4392\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\3d1f8281b702ec7358369b73e3f74712b1803654\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\e23a64679499b835a678b0d0351165dd1b02ecbe\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\699d7057c8b5113c0f3356b85bb3b9b18b02d46f\output\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\d4c953cc3cf6db923b7fabcfd61fff174ff4cc7c\output\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\ff9cde4edb75fc8683783b8a578901f71b74b478\output\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\7b91075d64fb36bcf4308493cd2b774830392f29\output\AndroidManifest.xml:25:5-29:19
-MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\436c3ba7e7d64b47daa4f733633ada30d1d675be\output\AndroidManifest.xml:24:5-28:19
-MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\thath\.android\build-cache\6a87eb6b56a1a624702eaed9231c999a4fe507d6\output\AndroidManifest.xml:9:5-20
-MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:18:5-33:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\38b43b596cc5bac88a555fd51c8a524b3f6beceb\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\6f6ee1fffbb5fa677c72a96d331c35b9d3d68be5\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\8ff5f284c06217e0fa7d75a56e13a93d941e7115\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\1bb6e497849ceb5e4357a94634915613863a98e0\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\fdb8b1d3805ed9b3e12df21e836a3689236a8417\output\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\9449543c44841df0926e8ad0c4f3e4b9cf14c415\output\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\796dfd4f952aa2420ce04deca032f3a9b33e04b3\output\AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\1fb5498bb0e5b5890e390d04da5799057f4a7c68\output\AndroidManifest.xml:25:5-29:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\431b0d24a91cfae6487c13ef021de18a8bf9d5ad\output\AndroidManifest.xml:24:5-28:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\thath\.android\build-cache\98983149e4defc063428d40f79131a12926572ae\output\AndroidManifest.xml:9:5-20
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:18:5-33:19
 	android:label
 		ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:12:9-41
 	android:supportsRtl
@@ -50,7 +50,7 @@ MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\buil
 	android:icon
 		ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:11:9-43
 		REJECTED from [BCC100:guest_science_library:unspecified] C:\Users\thath\.android\build-cache\1f31d6e0d1fdbee7f27b44fb10d2ef92e8921fc1\output\AndroidManifest.xml:13:9-43
-		REJECTED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:19:9-36
+		REJECTED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:19:9-36
 	android:theme
 		ADDED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:16:9-40
 	tools:replace
@@ -85,21 +85,21 @@ uses-sdk
 INJECTED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [BCC100:guest_science_library:unspecified] C:\Users\thath\.android\build-cache\1f31d6e0d1fdbee7f27b44fb10d2ef92e8921fc1\output\AndroidManifest.xml:7:5-9:41
 MERGED from [BCC100:kibo_rpc_api:unspecified] C:\Users\thath\.android\build-cache\6feee37418f24f10b09526115589c42b9b58869b\output\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\7f0ac16af10df2573f606e29a71b7eb3bc341692\output\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\bcb7e28603cb6171595b78da10b6608f09dc4392\output\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\3d1f8281b702ec7358369b73e3f74712b1803654\output\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\e23a64679499b835a678b0d0351165dd1b02ecbe\output\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\699d7057c8b5113c0f3356b85bb3b9b18b02d46f\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\d4c953cc3cf6db923b7fabcfd61fff174ff4cc7c\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\ff9cde4edb75fc8683783b8a578901f71b74b478\output\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\7b91075d64fb36bcf4308493cd2b774830392f29\output\AndroidManifest.xml:21:5-23:58
-MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\436c3ba7e7d64b47daa4f733633ada30d1d675be\output\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\thath\.android\build-cache\6a87eb6b56a1a624702eaed9231c999a4fe507d6\output\AndroidManifest.xml:5:5-7:41
-MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:8:5-10:41
-MERGED from [com.quickbirdstudios:opencv:3.4.4-contrib] C:\Users\thath\.android\build-cache\5609bb914a5b5b7c3ee1c6ac151c528812a35a6d\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\38b43b596cc5bac88a555fd51c8a524b3f6beceb\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\6f6ee1fffbb5fa677c72a96d331c35b9d3d68be5\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\8ff5f284c06217e0fa7d75a56e13a93d941e7115\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\1bb6e497849ceb5e4357a94634915613863a98e0\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\fdb8b1d3805ed9b3e12df21e836a3689236a8417\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\9449543c44841df0926e8ad0c4f3e4b9cf14c415\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\796dfd4f952aa2420ce04deca032f3a9b33e04b3\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\1fb5498bb0e5b5890e390d04da5799057f4a7c68\output\AndroidManifest.xml:21:5-23:58
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\431b0d24a91cfae6487c13ef021de18a8bf9d5ad\output\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\thath\.android\build-cache\98983149e4defc063428d40f79131a12926572ae\output\AndroidManifest.xml:5:5-7:41
+MERGED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:8:5-10:41
+MERGED from [com.quickbirdstudios:opencv:3.4.4-contrib] C:\Users\thath\.android\build-cache\d8778c16172b33dbd1fe40c9730dc8ae36ae62a5\output\AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:23:9-75
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
 		INJECTED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml
@@ -119,60 +119,60 @@ ADDED from [BCC100:guest_science_library:unspecified] C:\Users\thath\.android\bu
 	android:name
 		ADDED from [BCC100:guest_science_library:unspecified] C:\Users\thath\.android\build-cache\1f31d6e0d1fdbee7f27b44fb10d2ef92e8921fc1\output\AndroidManifest.xml:22:25-85
 meta-data#android.support.VERSION
-ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\7f0ac16af10df2573f606e29a71b7eb3bc341692\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\bcb7e28603cb6171595b78da10b6608f09dc4392\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\3d1f8281b702ec7358369b73e3f74712b1803654\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\e23a64679499b835a678b0d0351165dd1b02ecbe\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\699d7057c8b5113c0f3356b85bb3b9b18b02d46f\output\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\d4c953cc3cf6db923b7fabcfd61fff174ff4cc7c\output\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\ff9cde4edb75fc8683783b8a578901f71b74b478\output\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\7b91075d64fb36bcf4308493cd2b774830392f29\output\AndroidManifest.xml:26:9-28:38
+ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-v4:26.1.0] C:\Users\thath\.android\build-cache\38b43b596cc5bac88a555fd51c8a524b3f6beceb\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\thath\.android\build-cache\6f6ee1fffbb5fa677c72a96d331c35b9d3d68be5\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\thath\.android\build-cache\8ff5f284c06217e0fa7d75a56e13a93d941e7115\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\thath\.android\build-cache\1bb6e497849ceb5e4357a94634915613863a98e0\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\fdb8b1d3805ed9b3e12df21e836a3689236a8417\output\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\thath\.android\build-cache\9449543c44841df0926e8ad0c4f3e4b9cf14c415\output\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\thath\.android\build-cache\796dfd4f952aa2420ce04deca032f3a9b33e04b3\output\AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] C:\Users\thath\.android\build-cache\1fb5498bb0e5b5890e390d04da5799057f4a7c68\output\AndroidManifest.xml:26:9-28:38
 	android:value
-		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:28:13-35
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:28:13-35
 	android:name
-		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\output\AndroidManifest.xml:27:13-51
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\thath\.android\build-cache\4f9fd28f57a085befc8e968432911ec486fded24\output\AndroidManifest.xml:27:13-51
 meta-data#android.arch.lifecycle.VERSION
-ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\436c3ba7e7d64b47daa4f733633ada30d1d675be\output\AndroidManifest.xml:25:9-27:47
+ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\431b0d24a91cfae6487c13ef021de18a8bf9d5ad\output\AndroidManifest.xml:25:9-27:47
 	android:value
-		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\436c3ba7e7d64b47daa4f733633ada30d1d675be\output\AndroidManifest.xml:27:13-44
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\431b0d24a91cfae6487c13ef021de18a8bf9d5ad\output\AndroidManifest.xml:27:13-44
 	android:name
-		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\436c3ba7e7d64b47daa4f733633ada30d1d675be\output\AndroidManifest.xml:26:13-58
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\thath\.android\build-cache\431b0d24a91cfae6487c13ef021de18a8bf9d5ad\output\AndroidManifest.xml:26:13-58
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:12:5-81
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:12:5-81
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:12:22-78
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:12:22-78
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:13:5-76
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:13:5-76
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:13:22-73
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:13:22-73
 uses-permission#android.permission.CHANGE_WIFI_STATE
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:14:5-76
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:14:5-76
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:14:22-73
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:14:22-73
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:16:5-78
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:16:5-78
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:16:22-75
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:16:22-75
 activity#org.ros.android.MasterChooser
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:21:9-24:45
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:21:9-24:45
 	android:label
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:23:13-45
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:23:13-45
 	android:launchMode
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:24:13-42
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:24:13-42
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:22:13-57
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:22:13-57
 service#org.ros.android.NodeMainExecutorService
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:26:9-32:19
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:26:9-32:19
 	tools:ignore
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:28:13-43
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:28:13-43
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:27:13-67
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:27:13-67
 intent-filter#org.ros.android.NodeMainExecutorService
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:29:13-31:29
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:29:13-31:29
 action#org.ros.android.NodeMainExecutorService
-ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:30:17-82
+ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:30:17-82
 	android:name
-		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\997cb2ae95090dd2a3128abadd0369deac496ddb\output\AndroidManifest.xml:30:25-79
+		ADDED from [org.ros.android_core:android_10:0.2.1] C:\Users\thath\.android\build-cache\c84383331d6fd224aa7dabc050808772188f9019\output\AndroidManifest.xml:30:25-79
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
 IMPLIED from C:\Users\thath\AndroidStudioProjects\BCC100\app\src\main\AndroidManifest.xml:2:1-31:12 reason: org.ros.android.android_10 requested WRITE_EXTERNAL_STORAGE

@@ -5,15 +5,15 @@
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_fade_out.xml"
-    },
-    {
-        "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\spsyt\\.android\\build-cache\\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\\output\\res\\anim\\abc_slide_out_bottom.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
         "source": "C:\\Users\\spsyt\\.android\\build-cache\\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\spsyt\\.android\\build-cache\\7f54fa2aa4ff63030f1325bb00e1eca2857fe315\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
@@ -25,11 +25,11 @@
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\tooltip_enter.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\tooltip_enter.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\tooltip_enter.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_popup_exit.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_popup_exit.xml"
     },
     {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
@@ -49,27 +49,27 @@
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\tooltip_exit.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\tooltip_exit.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\tooltip_exit.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_slide_in_bottom.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_slide_out_top.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_slide_out_top.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_fade_in.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_fade_in.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_slide_in_top.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_slide_in_top.xml"
     },
     {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
@@ -81,15 +81,15 @@
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_popup_enter.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_slide_out_bottom.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\thath\\.android\\build-cache\\e30525a2e2fb403cdb75e03bb3e5583d97c3d4cf\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+        "source": "C:\\Users\\thath\\.android\\build-cache\\4f9fd28f57a085befc8e968432911ec486fded24\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\anim\\tooltip_exit.xml",
