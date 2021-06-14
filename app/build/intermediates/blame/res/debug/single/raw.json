@@ -1,5 +1,33 @@
 [
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\blend_screen_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\blend_screen_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\blend_add_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\blend_add_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\color_threshold_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\color_threshold_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\grey_scale_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\grey_scale_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\copy_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\copy_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\sepia_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\sepia_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\minimal_vertex_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\minimal_vertex_shader.glsl"
+    },
+    {
         "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\zxing_beep.ogg",
         "source": "C:\\Users\\thath\\.android\\build-cache\\d3e64b40d3ec5a2d68071eb4a3ae5c307f004591\\output\\res\\raw\\zxing_beep.ogg"
     },
@@ -8,7 +36,19 @@
         "source": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\src\\main\\res\\raw\\astrobee.mp3"
     },
     {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vignette_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\vignette_fragment_shader.glsl"
+    },
+    {
         "merged": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\build\\intermediates\\res\\merged\\debug\\raw\\astrobee.mp3",
         "source": "E:\\UwU Product\\BCC & Earn Money\\2nd Kibo Robot Programming Challenge\\app\\src\\main\\res\\raw\\astrobee.mp3"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\blur_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\blur_fragment_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\thath\\AndroidStudioProjects\\BCC100\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fog_fragment_shader.glsl",
+        "source": "C:\\Users\\thath\\.android\\build-cache\\028d6c21805a6394e9997ebae2b2f042eecdb10b\\output\\res\\raw\\fog_fragment_shader.glsl"
     }
 ]

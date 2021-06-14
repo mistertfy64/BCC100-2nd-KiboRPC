@@ -13,10 +13,17 @@ import com.google.zxing.qrcode.QRCodeReader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.aruco.*;
+import org.opencv.core.Mat;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.Math;
+import java.util.ArrayList;
+import java.util.List;
 
 import gov.nasa.arc.astrobee.Kinematics;
 import gov.nasa.arc.astrobee.Result;
@@ -30,32 +37,53 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 
 public class YourService extends KiboRpcService {
 
-
     // FEEL FREE TO EDIT
 
     // Whether to send log messages. Set it to true to enable logging, which takes more time. Set it to false to disable logging, which takes less time. Default value is true.
     final boolean LOG_MESSAGES = true;
-    // The offset coefficient.
-    final int DEFAULT_OFFSET_COEFFICIENT = 3;
-    // The offset.
-    final float OFFSET = 0.4270f;
-
-
+    // The offset coefficient. Default value is 3.
+    final float DEFAULT_OFFSET_COEFFICIENT = 2.25f;
+    // The offset. Default value is 0.275f.
+    final float OFFSET = 0.275f;
+    // Whether to use the "preset location". Default value is true.
+    final boolean FORCE_USE_PRESETS = true;
+    // ???
+    final float ANGLE_CONSTANT_1 = 9f;
+    final float ANGLE_CONSTANT_2 = 9f;
+    
     // DO NOT EDIT
 
     final long MILLISECONDS_IN_A_SECOND = 1000;
-    long timeStarted;
+    long timeStarted; // what even is this for?
     int timesCalled = 0;
-    float tx = 0, ty = 0, tz = 0;
-    float[] infoOfAPrime;
+    float papx = 0, papy = 0, papz = 0;
+    float[] infoOfAPrime = new float[]{-1, 0, 0, 0, 0, 0, 0, 0};
     final float PI = 3.1415f;
-    float distanceFromTargetToRobot = 0;
-
+    float distanceFromQRCodeToRobot = 0;
+    int keepOutAreaPattern = 0;
+    Point QRCodePosition;
+    float differenceOfQRCodeAndARTagXCoordinates = 0f;
+    float differenceOfQRCodeAndARTagZCoordinates = 0f;
+    Quaternion initialQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
 
     @Override
     protected void runPlan1() {
 
         Log.d("INFO", "Te = xs = Info [!] = Concerning, [!!] = Warning, [!!!] = Error");
+
+
+
+
+        api.startMission();
+        timeStarted = System.currentTimeMillis();
+
+        if(OpenCVLoader.initDebug()){
+            logMessage("Succesfully loaded OpenCV");
+        } else {
+            logException("Failed to load openCV");
+        }
+
+
 
         // A
         Point pointA = new Point(11.21f, -9.8f, 4.79f);
@@ -66,22 +94,13 @@ public class YourService extends KiboRpcService {
         Quaternion quaternionB = new Quaternion(0f, 0f, -0.707f, 0.707f);
 
 
-
-        timeStarted = System.currentTimeMillis();
-        api.startMission();
-
-
-
-
         // Move to first pos (Step 1)
         moveAndAlignTo(pointA, quaternionA, 5, true);
 
         // Turn on/off flashlight
-        logMessage("Turning on flashlight...");
-        api.flashlightControlFront(0.555f);
-        api.flashlightControlBack(0.555f);
+        changeBrightnessOfBothFlashlights(0.555f, 5);
 
-        // (read QR, move to Point-A’, read AR and aim the target) (Step 2)
+        // (read QR, move to Point-A’, read AR and aim the QRCode) (Step 2)
         Bitmap image = cropImage(api.getBitmapNavCam(), 589,573,852-589,836-573);
         String content = readQRCode(image, 2);
 
@@ -110,57 +129,42 @@ public class YourService extends KiboRpcService {
             logException(stringWriter.toString());
         }
 
-        // Turn off flashlight
-        logMessage("Turning off flashlight...");
-        api.flashlightControlFront(0f);
-        api.flashlightControlBack(0f);
+        changeBrightnessOfBothFlashlights(0f, 5);
 
 
         infoOfAPrime = parseQRCodeContent(content);
 
-        int keepOutAreaPattern = (int) infoOfAPrime[0];
-        tx = infoOfAPrime[1];
-        ty = infoOfAPrime[2];
-        tz = infoOfAPrime[3];
+        keepOutAreaPattern = (int) infoOfAPrime[0];
+        papx = infoOfAPrime[1];
+        papy = infoOfAPrime[2];
+        papz = infoOfAPrime[3];
 
-        /*
-        // A'
-        Point pointAPrime = new Point(infoOfAPrime[1], infoOfAPrime[2], infoOfAPrime[3]);
-        Quaternion quaternionAPrime = new Quaternion(infoOfAPrime[4], infoOfAPrime[5], infoOfAPrime[6], infoOfAPrime[7]);
-
-        // A''
-        Point pointAPrimePrime = calculatePointAPrimePrime((int) infoOfAPrime[0]);
-        Quaternion quaternionAPrimePrime = calculateQuaternionAPrimePrime((int) infoOfAPrime[0]);
-
-        */
-
-        float initialDistanceFromTargetToRobot = (float) Math.abs(pointA.getZ() - infoOfAPrime[3]);
-        distanceFromTargetToRobot = initialDistanceFromTargetToRobot / 4;
-
-
-        moveAndAlignTo(new Point(tx, ty, tz+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
-        moveAndAlignToTarget((int) infoOfAPrime[0]);
-
-        /*
-        if ((1 <= keepOutAreaPattern && keepOutAreaPattern <= 4) || keepOutAreaPattern == 8) {
-            // Pattern is 1, 3, 4 or 8
-            // Move and align to A''
-            moveAndAlignTo(pointAPrimePrime, quaternionAPrimePrime, 5, true);
+        float initialDistanceFromQRCodeToRobot = (float) Math.abs(pointA.getZ() - infoOfAPrime[3]);
+        distanceFromQRCodeToRobot = initialDistanceFromQRCodeToRobot;
+        differenceOfQRCodeAndARTagXCoordinates = Math.abs(papx-11.21f);
+        differenceOfQRCodeAndARTagZCoordinates = Math.abs(papz-4.79f);
 
 
 
-        } else {
+        moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+        moveToPointAPrime();
 
-            moveAndAlignTo(api.getRobotKinematics().getPosition(), quaternionAPrimePrime, 5, true);
-            // Pattern is 5, 6 or 7
+        changeBrightnessOfBothFlashlights(0.555f, 5);
 
-        }*/
+        double[] positions = detectArUcoMarker(api.getMatNavCam());
+        QRCodePosition = calculatePointOfCenterOfQRCode();
+
+        changeBrightnessOfBothFlashlights(0f, 5);
 
 
+        calibrateAstrobee();
+
+        moveAndAlignTo(getConfidentPosition(), calculateOptimalQuaternion(), 5, true);
 
         // Turn on laser
         api.laserControl(true);
 
+        logMessage("Taking snapshots...");
         api.takeSnapshot();
 
         api.laserControl(false);
@@ -205,7 +209,7 @@ public class YourService extends KiboRpcService {
             ++iterations;
 
             if (result.hasSucceeded()) {
-                logMessage("[PASS] Successfully moved to " + point + " and aligned to " + quaternion + " in " + (iterations + 1) + " attempt(s) taking " + calculateTime(startTime) + " seconds!");
+                logMessage("[PASS] Successfully moved to " + point + " and aligned to " + quaternion + " in " + iterations + " attempt(s) taking " + calculateTime(startTime) + " seconds!");
                 return true;
             }
         }
@@ -353,166 +357,8 @@ public class YourService extends KiboRpcService {
         return Bitmap.createBitmap(image, x, y, w, h);
     }
 
-    private Bitmap cropImage(Bitmap image, float percentX, float percentY, int targetWidth, int targetHeight) {
-        int wi = image.getWidth(), hi = image.getHeight();
-        return Bitmap.createBitmap(image, (int) percentX * wi, (int) percentY * hi, targetWidth, targetHeight);
-    }
-
-    private Bitmap cropImage(Bitmap image, float percentageX1, float percentageY1, float targetX2Percentage, float targetY2Percentage) {
-        int wi = image.getWidth(), hi = image.getHeight();
-        // ax-bx == (a-b)x
-        return Bitmap.createBitmap(image, (int) percentageX1 * wi, (int) percentageY1 * hi, (int) (targetX2Percentage - percentageX1) * wi, (int) (targetY2Percentage - percentageY1) * hi);
-    }
 
 
-    /**
-     * TODO: Fill this but its probably useless lol
-     * Checks if a point (px, py, pz) is in a cube.
-     *
-     * @param px
-     * @param py
-     * @param pz
-     * @param cx1
-     * @param cy1
-     * @param cz1
-     * @param cx2
-     * @param cy2
-     * @param cz2
-     * @return
-     */
-    private boolean checkIfPointIsInCube(float px, float py, float pz, float cx1, float cy1, float cz1, float cx2, float cy2, float cz2) {
-        return cx1 <= px && px <= cx2 && cy1 <= py && py <= cy2 && cz1 <= pz && pz <= cz2;
-    }
-
-    /**
-     * TODO: Fill this but its probably useless lol
-     * Check if a line passes through a cube
-     *
-     * @param lx1
-     * @param ly1
-     * @param lz1
-     * @param lx2
-     * @param ly2
-     * @param lz2
-     * @param cx1
-     * @param cy1
-     * @param cz1
-     * @param cx2
-     * @param cy2
-     * @param cz2
-     * @param ix
-     * @param iy
-     * @param iz
-     * @return
-     */
-    private boolean checkIfLinePassesThroughCube(float lx1, float ly1, float lz1, float lx2, float ly2, float lz2, float cx1, float cy1, float cz1, float cx2, float cy2, float cz2, float ix, float iy, float iz) {
-        float x = lx2, y = ly2, z = lz2;
-        while (lx1 <= x && ly1 <= y && lz1 <= z) {
-            x -= ix;
-            y -= iy;
-            z -= iz;
-            if (checkIfPointIsInCube(x, y, z, cx1, cy1, cz1, cx2, cy2, cz2)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private Point calculatePointAPrimePrime(int keepOutAreaPattern){
-        float x = 0, y = 0, z = 0;
-        Kinematics kinematics = api.getRobotKinematics();
-        float cx = (float) kinematics.getPosition().getX();
-        float cy = (float) kinematics.getPosition().getY();
-        float cz = (float) kinematics.getPosition().getZ();
-
-        // tx = target x, ty = target y, tz = target z, mo = DEFAULT_OFFSET_COEFFICIENT*OFFSET
-        // cx, cy, cz = ROBOT'S current position
-
-        // KOZP1 = (tx+DEFAULT_OFFSET_COEFFICIENT*OFFSET, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
-        // KOZP2 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
-        // KOZP3 = (tx-DEFAULT_OFFSET_COEFFICIENT*OFFSET, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
-        // KOZP4 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
-        // KOZP5 = (tx, ty, tz)
-        // KOZP6 = (tx, ty, tz)
-        // KOZP7 = (tx, ty, tz)
-        // KOZP8 = (tx, ty+DEFAULT_OFFSET_COEFFICIENT*OFFSET, tz)
-
-        // x is lower <-------------------> x is higher
-
-/*
-        switch (keepOutAreaPattern){
-            case 1:{
-                return new Point(tx+OFFSET, ty, tz-OFFSET);
-            }
-            case 2:{
-                return new Point(tx, ty, tz-OFFSET);
-            }
-            case 3:{
-                return new Point(tx, ty, tz-OFFSET);
-            }
-            case 4:{
-                return new Point(tx+OFFSET, ty, tz-OFFSET);
-            }
-            case 5:{
-                break;
-            }
-            case 6:{
-                break;
-            }
-            case 7:{
-                break;
-            }
-            case 8:{
-                return new Point(tx+OFFSET, ty, tz-OFFSET);
-            }
-
-        }
-        */
-
-
-        return rotateRobotByPoint(new Point(11.21f, -9.8f, 4.79f), keepOutAreaPattern > 1 ? convertDegreesToRadians((keepOutAreaPattern-2)*45) : convertDegreesToRadians(315), infoOfAPrime[1], infoOfAPrime[3]);
-    }
-
-
-    // TODO: FIX THIS
-    private Quaternion calculateQuaternionAPrimePrime(int keepOutAreaPattern) {
-
-        Quaternion startQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
-        switch (keepOutAreaPattern) {
-            case 1: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(15f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0f)));
-            }
-            case 2: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(0f)));
-            }
-            case 3: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-15f)));
-            }
-            case 4: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(0f), convertDegreesToRadians(90f)));
-            }
-            case 5: {
-                break;
-            }
-            case 6: {
-                break;
-            }
-            case 7: {
-                break;
-            }
-            case 8: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(convertDegreesToRadians(0f), convertDegreesToRadians(-42.5f), convertDegreesToRadians(-90f)));
-            }
-        }
-        // at least it tried so we have a 0.00000000000000000000000001% chance of getting a non-zero score but this shouldnt happen
-        return new Quaternion(0f, 0f, -0.707f, 0.707f);
-    }
-
-
-    private Quaternion rotateQuaternionByMatrix(Quaternion startQuaternion, Matrix matrix){
-        return new Quaternion();
-    }
 
     /**
      * Copied from https://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
@@ -526,16 +372,6 @@ public class YourService extends KiboRpcService {
         float z =  q1.getX() * q2.getY() - q1.getY() * q2.getX() + q1.getZ() * q2.getW() + q1.getW() * q2.getZ();
         float w = -q1.getX() * q2.getX() - q1.getY() * q2.getY() - q1.getZ() * q2.getZ() + q1.getW() * q2.getW();
         return new Quaternion(x, y, z, w);
-    }
-
-
-
-    private float convertRadiansToDegrees(float radians){
-        return radians*180f/PI;
-    }
-
-    private float convertDegreesToRadians(float degrees){
-        return degrees*PI/180f;
     }
 
     /**
@@ -589,44 +425,361 @@ public class YourService extends KiboRpcService {
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return encoded;
     }
+    
+    private void moveToPointAPrime(){
+        /* OLD
+        switch (keepOutAreaPattern){
+            case 1:{
+                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+                moveAndAlignTo(new Point(papx, papy, papz+OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 2:{
+                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 3:{
+                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 4:{
+                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 5:{
+                moveAndAlignTo(new Point(papx-OFFSET, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 6:{
+                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 7:{
+                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+            case 8:{
+                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+                break;
+            }
+        }
+        */
+        // NEW
+        moveAndAlignTo(new Point(papx, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
+        switch (keepOutAreaPattern){
+            case 1:
+            case 8:{
+                moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
+                moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
+                break;
+            }
+            case 2:
+            case 3:
+            case 4: {
+                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
+                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
+                break;
+            }
+            case 5:
+            case 6: {
+                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.25f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, 5, true);
+                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.25f, papy, papz), initialQuaternion, 5, true);
+                break;
+            }
+            case 7: {
+            }
+        }
 
-    /**
-     * Not going to implement 3D.
-     * https://math.stackexchange.com/questions/270194/how-to-find-the-vertices-angle-after-rotation
-     * @param startingPoint
-     * @param centerX
-     * @param centerZ
-     * @return
-     */
-    private Point rotateRobotByPoint(Point startingPoint, float angle, float centerX, float centerZ){
-        float currentX = (float) startingPoint.getX();
-        float currentZ = (float) startingPoint.getZ();
-        return new Point((float) (currentX-centerX)*Math.cos(angle)-(currentZ-centerZ)*Math.sin(angle)+centerX, (float) startingPoint.getY(),(float) (currentX-centerX)*Math.sin(angle)+(currentZ-centerZ)*Math.cos(angle)+centerZ);
+        moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+
     }
 
-    private void moveAndAlignToTarget(int keepOutAreaPattern){
-        if (3 <= keepOutAreaPattern && keepOutAreaPattern <= 6){
-            for (int i = keepOutAreaPattern; i <= keepOutAreaPattern; i++){
-                if (i == 3){
-                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()-distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
-                } else if (i == 6){
-                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()+distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
-                } else {
-                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX(), api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
-                }
+
+    private void moveAndAlignToFinish(){
+        switch (keepOutAreaPattern){
+            case 1:
+            case 2:
+            case 3:{
+
+                break;
             }
-        } else if (keepOutAreaPattern == 1 ||  keepOutAreaPattern >= 7) {
-            for (int i = keepOutAreaPattern == 1 ? 9: keepOutAreaPattern; i >= keepOutAreaPattern; i--){
-                if (i==9){
-                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX()+distanceFromTargetToRobot, api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()), api.getRobotKinematics().getOrientation(), 5, true);
-                } else {
-                    moveAndAlignTo(new Point(api.getRobotKinematics().getPosition().getX(), api.getRobotKinematics().getPosition().getY(), api.getRobotKinematics().getPosition().getZ()+distanceFromTargetToRobot), api.getRobotKinematics().getOrientation(), 5, true);
+            case 4:{
+                break;
+            }
+            case 5:
+            case 6:
+            case 7:{
+                break;
+            }
+            case 8:{
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    private Point getConfidentPosition(){
+        Kinematics kinematics = api.getTrustedRobotKinematics();
+        if (kinematics == null) {
+            return api.getRobotKinematics().getPosition();
+        }
+        return kinematics.getPosition();
+    }
+
+    private Quaternion getConfidentQuaternion(){
+        Kinematics kinematics = api.getTrustedRobotKinematics();
+        if (kinematics == null) {
+            return api.getRobotKinematics().getOrientation();
+        }
+        return kinematics.getOrientation();
+    }
+
+    private Quaternion calculateOptimalQuaternion(){
+        Quaternion startQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
+        switch (keepOutAreaPattern){
+            case 1:
+            case 8: {
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(-1*(float) Math.toRadians(ANGLE_CONSTANT_1),  -1* (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+            }
+            case 2:
+            case 3:
+            case 4: {
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(ANGLE_CONSTANT_1),  -1* (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+            }
+            case 5:
+            case 6: {
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(ANGLE_CONSTANT_1),   (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+            }
+            case 7: {
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(-1*(float) Math.toRadians(ANGLE_CONSTANT_1),  (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+            }
+        }
+        return new Quaternion(0f, 0f, -0.707f, 0.707f);
+    }
+    
+
+
+    private double[] detectArUcoMarker(Mat mat){
+
+        List<Mat> corners = new ArrayList<>();
+        Mat ids = new Mat();
+
+        Aruco.detectMarkers(mat, Aruco.getPredefinedDictionary(Aruco.DICT_5X5_250), corners, ids);
+        
+        //TODO: If this doesn't work calculate the center and then use that.
+        int[][] markerPositions = calculatePositionOfPoints(corners.get(0).get(0,0), corners.get(1).get(0,0), corners.get(2).get(0,0), corners.get(3).get(0,0));
+        // logMessage(markerPositions.toString());
+        int[] wantedMarkerPosition = new int[2];
+        int markerNumber = 1;
+
+        switch (keepOutAreaPattern){
+            case 1:
+            case 8: {
+                wantedMarkerPosition[0] = 1;
+                wantedMarkerPosition[1] = 1;
+                break;
+            }
+            case 2:
+            case 3:
+            case 4: {
+                wantedMarkerPosition[0] = 0;
+                wantedMarkerPosition[1] = 1;
+                break;
+            }
+            case 5:
+            case 6:{
+                wantedMarkerPosition[0] = 0;
+                wantedMarkerPosition[1] = 0;
+                break;
+            }
+            case 7:{
+                wantedMarkerPosition[0] = 1;
+                wantedMarkerPosition[1] = 0;
+                break;
+            }
+            default: {
+                wantedMarkerPosition[0] = 0;
+                wantedMarkerPosition[1] = 1;
+                break;
+            }
+        }
+
+        for (int i = 0; i < 4; i++){
+            if (markerPositions[i][0]==wantedMarkerPosition[0]&&markerPositions[i][1]==wantedMarkerPosition[1]){
+                markerNumber = i;
+                break;
+            }
+        }
+
+
+        return calculateCenterFromCorners(corners.get(markerNumber).get(0, 0), corners.get(markerNumber).get(0, 1), corners.get(markerNumber).get(0, 2), corners.get(markerNumber).get(0, 3));
+
+
+    }
+
+    private void changeBrightnessOfBothFlashlights(float brightness, int attempts){
+        Result frontResult = null, backResult = null;
+        logMessage("[METHOD INVOCATION] changeBrightnessOfBothFlashlights() called! Attempting " + attempts + " times to change the brightness of both flashlights to " + brightness + "f.");
+        int iterations = 0;
+        while ((frontResult == null || backResult == null) && iterations < attempts){
+            frontResult = api.flashlightControlFront(brightness);
+            backResult = api.flashlightControlBack(brightness);
+            iterations++;
+        }
+        logMessage((frontResult==null||backResult==null)?"[FAIL] Failed to change the brightness of both flashlights to " + brightness + "f.":"[PASS] Successfully changed the brightness of both flashlights to " + brightness + "f.");
+    }
+
+
+    /**
+     * C3 --- C2
+     * |       |
+     * |       |
+     * |       |
+     * C0 --- C1
+     * @param c00
+     * @param c01
+     * @param c02
+     * @param c03
+     * @return
+     */
+    private double[] calculateCenterFromCorners(double[] c00, double[] c01, double[] c02, double[] c03){
+        return new double[]{(c03[0] + c01[0]) / 2, (c03[1] + c01[1]) / 2 };
+    }
+
+    /**
+     * Index:
+     * 0, 1 --- 1, 1
+     * |          |
+     * |          |
+     * |          |
+     * 0, 0 --- 1, 0
+     * @return
+     */
+    private int[][] calculatePositionOfPoints(double[] c1, double[] c2, double[] c3, double[] c4){
+        double[][] px = {{c1[0], 1.0}, {c2[0], 2.0}, {c3[0], 3.0}, {c4[0], 4.0}};
+        double[][] py = {{c1[1], 1.0}, {c2[1], 2.0}, {c3[1], 3.0}, {c4[1], 4.0}};
+        double[][] pxnew = sortArrayBasedOnFirstElement(px);
+        double[][] pynew = sortArrayBasedOnFirstElement(py);
+        int[][] result = new int[4][2];
+
+        // x
+        for (int i = 0; i < 2; i++){
+            result[convertDoubleToIndex(pxnew[i][1])][0] = 0;
+        }
+        for (int i = 2; i < 4; i++){
+            result[convertDoubleToIndex(pxnew[i][1])][0] = 1;
+        }
+        // y
+        for (int i = 0; i < 2; i++){
+            result[convertDoubleToIndex(pynew[i][1])][1] = 0;
+        }
+        for (int i = 2; i < 4; i++){
+            result[convertDoubleToIndex(pynew[i][1])][1] = 1;
+        }
+        return result;
+    }
+
+    private int convertDoubleToIndex(double whatToConvert){
+        if (whatToConvert == 1.0){
+            return 0;
+        } else if (whatToConvert == 2.0){
+            return 1;
+        } else if (whatToConvert == 3.0){
+            return 2;
+        } else if (whatToConvert == 4.0){
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+
+
+    private double[][] sortArrayBasedOnFirstElement(double[][] whatToSort){
+        double[][] currentArray = whatToSort;
+        // bubble sort because i cant think of a better sorting algorithm lol
+        for (int i = 0; i < whatToSort.length; i++){
+            for (int j = 0; j < whatToSort.length; j++){
+                if (i==j){ continue; }
+                if (currentArray[i][0] > currentArray[j][0]){
+                    double[] tempArray = currentArray[j];
+                    currentArray[j] = currentArray[i];
+                    currentArray[i] = tempArray;
                 }
             }
         }
-        moveAndAlignTo(api.getRobotKinematics().getPosition(), calculateQuaternionAPrimePrime(keepOutAreaPattern), 5, true);
+        return currentArray;
     }
 
+
+    // 0.01 units <---> 6.4 mat pixels
+    // 1 units <---> 640 mat pixels
+
+    private double convertMatPixelsToSimulatorUnits(double pixels){
+        return (pixels/6.4d)/100d;
+    }
+
+    private double convertSimulatorUnitsToMatPixels(double units){
+        return (units*6.4d*100d);
+    }
+
+    private Point calculatePointOfCenterOfQRCode(){
+        Point position = new Point(infoOfAPrime[1], infoOfAPrime[2], infoOfAPrime[3]);
+        float px = (float) position.getX(), py = (float) position.getY(), pz = (float) position.getZ();
+        switch(keepOutAreaPattern){
+            case 1:{
+                px -= 0.1125f;
+                pz += 0.04f;
+                break;
+            }
+            case 2:{
+                px += 0.1125f;
+                pz += 0.04f;
+                break;
+            }
+            case 3:{
+                px += 0.1125f;
+                pz += 0.04f;
+                break;
+            }
+            case 4:{
+                px += 0.1125f;
+                pz += 0.04f;
+                break;
+            }
+            case 5:{
+                px += 0.1125f;
+                pz -= 0.04f;
+                break;
+            }
+            case 6:{
+                px += 0.1125f;
+                pz -= 0.04f;
+                break;
+            }
+            case 7:{
+                px -= 0.1125f;
+                pz -= 0.04f;
+                break;
+            }
+            case 8:{
+                px -= 0.1125f;
+                pz += 0.04f;
+                break;
+            }
+
+        }
+        return new Point(px, py, pz);
+    }
+
+    private void calibrateAstrobee(){
+        
+        moveAndAlignTo(new Point(papx, papy, papz), getConfidentQuaternion(), 5, true);
+    }
 
 }
 
