@@ -48,8 +48,8 @@ public class YourService extends KiboRpcService {
     // Whether to use the "preset location". Default value is true.
     final boolean FORCE_USE_PRESETS = true;
     // ???
-    final float ANGLE_CONSTANT_1 = 9f;
-    final float ANGLE_CONSTANT_2 = 9f;
+    final float ANGLE_CONSTANT_1 = 6f;
+    final float ANGLE_CONSTANT_2 = 15f;
     
     // DO NOT EDIT
 
@@ -61,7 +61,7 @@ public class YourService extends KiboRpcService {
     final float PI = 3.1415f;
     float distanceFromQRCodeToRobot = 0;
     int keepOutAreaPattern = 0;
-    Point QRCodePosition;
+    Point qrCodePosition;
     float differenceOfQRCodeAndARTagXCoordinates = 0f;
     float differenceOfQRCodeAndARTagZCoordinates = 0f;
     Quaternion initialQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
@@ -152,7 +152,7 @@ public class YourService extends KiboRpcService {
         changeBrightnessOfBothFlashlights(0.555f, 5);
 
         double[] positions = detectArUcoMarker(api.getMatNavCam());
-        QRCodePosition = calculatePointOfCenterOfQRCode();
+        qrCodePosition = calculatePointOfCenterOfQRCode();
 
         changeBrightnessOfBothFlashlights(0f, 5);
 
@@ -218,6 +218,15 @@ public class YourService extends KiboRpcService {
         logMessage("[FAIL] Failed to move to " + point + " and aligning to " + quaternion + "!");
         return false;
 
+    }
+
+    private int selfAwareMoveAndAlignTo(Point expectedPoint, Quaternion expectedQuaternion, float incrementX, float incrementY, float incrementZ, int attempts, boolean printRobotPosition){
+        logMessage("[METHOD INVOCATION] selfAwareMoveAndAlignTo() called!");
+        for (int i = 0; i < attempts; i++){
+            if (moveAndAlignTo(new Point(expectedPoint.getX()+(incrementX*i), expectedPoint.getY()+(incrementY*i), expectedPoint.getZ()+(incrementZ*i)), expectedQuaternion, 1, printRobotPosition)){logMessage("[PASS] Self awareness moving successful.");return i;}
+        }
+        logMessage("[FAIL] Self awareness moving failed.");
+        return -1;
     }
 
     private String readQRCode(Bitmap image, int attempts) {
@@ -427,73 +436,37 @@ public class YourService extends KiboRpcService {
     }
     
     private void moveToPointAPrime(){
-        /* OLD
-        switch (keepOutAreaPattern){
-            case 1:{
-                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
-                moveAndAlignTo(new Point(papx, papy, papz+OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 2:{
-                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 3:{
-                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 4:{
-                moveAndAlignTo(new Point(papx-OFFSET, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 5:{
-                moveAndAlignTo(new Point(papx-OFFSET, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 6:{
-                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 7:{
-                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-            case 8:{
-                moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
-                moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
-                break;
-            }
-        }
-        */
         // NEW
         moveAndAlignTo(new Point(papx, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
         switch (keepOutAreaPattern){
             case 1:
             case 8:{
-                moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
-                moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
+                // moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
+                // moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
+                selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion,0.05f, 0f, -0.05f,5,true);
+                selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f, 0f, 0f,5, true);
                 break;
             }
             case 2:
             case 3:
             case 4: {
-                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
-                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
+                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, -0.05f,0f, -0.05f,5, true);
+                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f,0f, 0f,5, true);
                 break;
             }
             case 5:
             case 6: {
-                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.25f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, 5, true);
-                moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.25f, papy, papz), initialQuaternion, 5, true);
+                // moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, 5, true);
+                // moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz), initialQuaternion, 5, true);
+                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.05f,0f,-0.05f,5, true);
+                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz), initialQuaternion, -0.05f,0f,0.05f,5, true);
                 break;
             }
             case 7: {
             }
         }
 
-        moveAndAlignTo(new Point(papx, papy, papz), api.getRobotKinematics().getOrientation(), 5, true);
+        moveAndAlignTo(new Point(papx, papy, papz), initialQuaternion, 5, true);
 
     }
 
@@ -736,26 +709,14 @@ public class YourService extends KiboRpcService {
                 pz += 0.04f;
                 break;
             }
-            case 2:{
-                px += 0.1125f;
-                pz += 0.04f;
-                break;
-            }
-            case 3:{
-                px += 0.1125f;
-                pz += 0.04f;
-                break;
-            }
+            case 2:
+            case 3:
             case 4:{
                 px += 0.1125f;
                 pz += 0.04f;
                 break;
             }
-            case 5:{
-                px += 0.1125f;
-                pz -= 0.04f;
-                break;
-            }
+            case 5:
             case 6:{
                 px += 0.1125f;
                 pz -= 0.04f;
