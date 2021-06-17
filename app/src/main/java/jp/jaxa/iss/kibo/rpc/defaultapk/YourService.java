@@ -55,7 +55,7 @@ public class YourService extends KiboRpcService {
     float[] infoOfAPrime = new float[]{-1, 0, 0, 0, 0, 0, 0, 0};
     float distanceFromQRCodeToRobot = 0;
     int keepOutAreaPattern = 0;
-    Point qrCodePosition;
+    Point targetPosition;
     float differenceOfQRCodeAndARTagXCoordinates = 0f;
     float differenceOfQRCodeAndARTagZCoordinates = 0f;
     Quaternion initialQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
@@ -132,7 +132,7 @@ public class YourService extends KiboRpcService {
         changeBrightnessOfBothFlashlights(0.555f, 5);
 
         double[] positions = detectArUcoMarker(api.getMatNavCam()); // This might be useful later...
-        qrCodePosition = calculatePointOfCenterOfQRCode();
+        targetPosition = calculatePointOfCenterOfTarget();
 
         changeBrightnessOfBothFlashlights(0f, 5);
 
@@ -201,6 +201,17 @@ public class YourService extends KiboRpcService {
 
     }
 
+    /**
+     * Moves the robot to the expected position, but for every time the moving fails, the increments will be added to the expected points.
+     * @param expectedPoint         The expected point.
+     * @param expectedQuaternion    The expected quaternion.
+     * @param incrementX            How much to increment x by if moving fails.
+     * @param incrementY            How much to increment y by if moving fails.
+     * @param incrementZ            How much to increment z by if moving fails.
+     * @param attempts              The number of attempts.
+     * @param printRobotPosition    Whether to print the robot's position.
+     * @return
+     */
     private int selfAwareMoveAndAlignTo(Point expectedPoint, Quaternion expectedQuaternion, float incrementX, float incrementY, float incrementZ, int attempts, boolean printRobotPosition){
         logMessage("[METHOD INVOCATION] selfAwareMoveAndAlignTo() called!");
         for (int i = 0; i < attempts; i++){
@@ -311,12 +322,6 @@ public class YourService extends KiboRpcService {
         return Long.toString(((System.currentTimeMillis() - timeStarted) / MILLISECONDS_IN_A_SECOND));
     }
 
-    /**
-     * TODO: fill this
-     *
-     * @param startTime
-     * @return
-     */
     private String calculateTime(long startTime) {
         return Long.toString(((System.currentTimeMillis() - startTime) / MILLISECONDS_IN_A_SECOND));
     }
@@ -415,7 +420,10 @@ public class YourService extends KiboRpcService {
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return encoded;
     }
-    
+
+    /**
+     * Moves to Point A' using a predetermined route.
+     */
     private void moveToPointAPrime(){
         // NEW
         moveAndAlignTo(new Point(papx, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
@@ -458,6 +466,11 @@ public class YourService extends KiboRpcService {
 
     }
 
+    /**
+     * Gets Astrobee's point using api.getTrustedRobotKinematics();
+     * If the point is not confident, api.getRobotKinematics(); will be used instead.
+     * @return The current position of Astrobee.
+     */
     private Point getConfidentPosition(){
         Kinematics kinematics = api.getTrustedRobotKinematics();
         if (kinematics == null) {
@@ -466,6 +479,11 @@ public class YourService extends KiboRpcService {
         return kinematics.getPosition();
     }
 
+    /**
+     * Gets Astrobee's quaternion using api.getTrustedRobotKinematics();
+     * If the quaternion is not confident, api.getRobotKinematics(); will be used instead.
+     * @return The current quaternion of Astrobee.
+     */
     private Quaternion getConfidentQuaternion(){
         Kinematics kinematics = api.getTrustedRobotKinematics();
         if (kinematics == null) {
@@ -474,6 +492,10 @@ public class YourService extends KiboRpcService {
         return kinematics.getOrientation();
     }
 
+    /**
+     * Calculates the optimal quaternion for use with the target.
+     * @return The optimal quaternion.
+     */
     private Quaternion calculateOptimalQuaternion(){
         Quaternion startQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
         switch (keepOutAreaPattern){
@@ -496,9 +518,13 @@ public class YourService extends KiboRpcService {
         }
         return new Quaternion(0f, 0f, -0.707f, 0.707f);
     }
-    
 
 
+    /**
+     * Attempts to find at least one ArUco marker.
+     * @param mat The input.
+     * @return    The corners of the WANTED ArUco marker.
+     */
     private double[] detectArUcoMarker(Mat mat){
 
         List<Mat> corners = new ArrayList<>();
@@ -556,6 +582,12 @@ public class YourService extends KiboRpcService {
 
     }
 
+
+    /**
+     * Changes the brightness of both flashlights.
+     * @param brightness The desired brightness.
+     * @param attempts   The number of attempts.
+     */
     private void changeBrightnessOfBothFlashlights(float brightness, int attempts){
         Result frontResult = null, backResult = null;
         logMessage("[METHOD INVOCATION] changeBrightnessOfBothFlashlights() called! Attempting " + attempts + " times to change the brightness of both flashlights to " + brightness + "f.");
@@ -570,29 +602,14 @@ public class YourService extends KiboRpcService {
 
 
     /**
-     * C3 --- C2
-     * |       |
-     * |       |
-     * |       |
-     * C0 --- C1
-     * @param c00
-     * @param c01
-     * @param c02
-     * @param c03
-     * @return
+     * For use with detectArUcoMarker();
      */
     private double[] calculateCenterFromCorners(double[] c00, double[] c01, double[] c02, double[] c03){
         return new double[]{(c03[0] + c01[0]) / 2, (c03[1] + c01[1]) / 2 };
     }
 
     /**
-     * Index:
-     * 0, 1 --- 1, 1
-     * |          |
-     * |          |
-     * |          |
-     * 0, 0 --- 1, 0
-     * @return
+     * For use with detectArUcoMarker();
      */
     private int[][] calculatePositionOfPoints(double[] c1, double[] c2, double[] c3, double[] c4){
         double[][] px = {{c1[0], 1.0}, {c2[0], 2.0}, {c3[0], 3.0}, {c4[0], 4.0}};
@@ -618,6 +635,9 @@ public class YourService extends KiboRpcService {
         return result;
     }
 
+    /**
+     * For use with detectArUcoMarker();
+     */
     private int convertDoubleToIndex(double whatToConvert){
         if (whatToConvert == 1.0){
             return 0;
@@ -632,7 +652,9 @@ public class YourService extends KiboRpcService {
         }
     }
 
-
+    /**
+     * For use with detectArUcoMarker();
+     */
     private double[][] sortArrayBasedOnFirstElement(double[][] whatToSort){
         double[][] currentArray = whatToSort;
         // bubble sort because i cant think of a better sorting algorithm lol
@@ -661,7 +683,11 @@ public class YourService extends KiboRpcService {
         return (units*6.4d*100d);
     }
 
-    private Point calculatePointOfCenterOfQRCode(){
+    /**
+     * Calculates the coordinates of the center of the QR Code.
+     * @return The point of the center of the QR Code.
+     */
+    private Point calculatePointOfCenterOfTarget(){
         Point position = new Point(infoOfAPrime[1], infoOfAPrime[2], infoOfAPrime[3]);
         float px = (float) position.getX(), py = (float) position.getY(), pz = (float) position.getZ();
         switch(keepOutAreaPattern){
@@ -698,12 +724,18 @@ public class YourService extends KiboRpcService {
         return new Point(px, py, pz);
     }
 
+    /**
+     * I don't know what this method is for.
+     */
     private void calibrateAstrobee(){
         moveAndAlignTo(new Point(papx, papy, papz), getConfidentQuaternion(), 5, true);
         logMessage("Calibrated Astrobee.");
     }
 
-    // GOAL: P(10,664, -9.8, 5.299)
+
+    /**
+     * Uses a predetermined route to move to Point B.
+     */
     private void moveToPointB(){
         switch (keepOutAreaPattern){
             case 1:
