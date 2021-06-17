@@ -37,6 +37,8 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 
 public class YourService extends KiboRpcService {
 
+    // WHY ARE WE USING FLOATS INSTEAD OF DOUBLES????????????
+
     // FEEL FREE TO EDIT
 
     // Whether to send log messages. Set it to true to enable logging, which takes more time. Set it to false to disable logging, which takes less time. Default value is true.
@@ -52,27 +54,23 @@ public class YourService extends KiboRpcService {
     final float ANGLE_CONSTANT_2 = 15f;
     
     // DO NOT EDIT
-
     final long MILLISECONDS_IN_A_SECOND = 1000;
     long timeStarted; // what even is this for?
     int timesCalled = 0;
     float papx = 0, papy = 0, papz = 0;
     float[] infoOfAPrime = new float[]{-1, 0, 0, 0, 0, 0, 0, 0};
-    final float PI = 3.1415f;
     float distanceFromQRCodeToRobot = 0;
     int keepOutAreaPattern = 0;
     Point qrCodePosition;
     float differenceOfQRCodeAndARTagXCoordinates = 0f;
     float differenceOfQRCodeAndARTagZCoordinates = 0f;
     Quaternion initialQuaternion = new Quaternion(0f, 0f, -0.707f, 0.707f);
+    int move1attempts = 0, move2attempts = 0, move3attempts = 0, move4attempts = 0;
 
     @Override
     protected void runPlan1() {
 
         Log.d("INFO", "Te = xs = Info [!] = Concerning, [!!] = Warning, [!!!] = Error");
-
-
-
 
         api.startMission();
         timeStarted = System.currentTimeMillis();
@@ -83,16 +81,9 @@ public class YourService extends KiboRpcService {
             logException("Failed to load openCV");
         }
 
-
-
         // A
         Point pointA = new Point(11.21f, -9.8f, 4.79f);
         Quaternion quaternionA = new Quaternion(0f, 0f, -0.707f, 0.707f);
-
-        // B
-        Point pointB = new Point(10.6f, -8.0f, 4.5f);
-        Quaternion quaternionB = new Quaternion(0f, 0f, -0.707f, 0.707f);
-
 
         // Move to first pos (Step 1)
         moveAndAlignTo(pointA, quaternionA, 5, true);
@@ -104,22 +95,16 @@ public class YourService extends KiboRpcService {
         Bitmap image = cropImage(api.getBitmapNavCam(), 589,573,852-589,836-573);
         String content = readQRCode(image, 2);
 
-        if (content.equals("")){
+        // paranoia be like
+        for (int i = 0; i < 100; i++){
             moveAndAlignTo(pointA, quaternionA, 5, true); // REMOVE THIS IF IT DOESN'T WORK
-            image = cropImage(api.getBitmapNavCam(), 589,573,852-589,836-573);
+            image = cropImage(api.getBitmapNavCam(), 579,563,273,273);
             content = readQRCode(image, 5);
-            if (content.equals("")) {
-                moveAndAlignTo(pointA, quaternionA, 5, true); // REMOVE THIS IF IT DOESN'T WORK
-                image = cropImage(api.getBitmapNavCam(), 589, 573, 852 - 589, 836 - 573);
-                content = readQRCode(image, 5);
+            if (!content.equals("")){
                 api.sendDiscoveredQR(content);
-            } else {
-                api.sendDiscoveredQR(content);
+                break;
             }
-        } else {
-            api.sendDiscoveredQR(content);
         }
-
 
         try {
             Thread.sleep(100);
@@ -134,6 +119,7 @@ public class YourService extends KiboRpcService {
 
         infoOfAPrime = parseQRCodeContent(content);
 
+        // ugly lol
         keepOutAreaPattern = (int) infoOfAPrime[0];
         papx = infoOfAPrime[1];
         papy = infoOfAPrime[2];
@@ -146,20 +132,22 @@ public class YourService extends KiboRpcService {
 
 
 
-        moveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(), 5, true);
+        selfAwareMoveAndAlignTo(new Point(papx, papy, papz-OFFSET), api.getRobotKinematics().getOrientation(),0f,0f,-0.10f, 5, true);
         moveToPointAPrime();
 
         changeBrightnessOfBothFlashlights(0.555f, 5);
 
-        double[] positions = detectArUcoMarker(api.getMatNavCam());
+        double[] positions = detectArUcoMarker(api.getMatNavCam()); // This might be useful later...
         qrCodePosition = calculatePointOfCenterOfQRCode();
 
         changeBrightnessOfBothFlashlights(0f, 5);
 
-
         calibrateAstrobee();
 
+        // TODO: Optimize this
         moveAndAlignTo(getConfidentPosition(), calculateOptimalQuaternion(), 5, true);
+
+        calibrateAstrobee();
 
         // Turn on laser
         api.laserControl(true);
@@ -169,8 +157,7 @@ public class YourService extends KiboRpcService {
 
         api.laserControl(false);
 
-        // B
-        moveAndAlignTo(pointB, quaternionB, 5, true);
+        moveToPointB();
 
         // Finished
         tryToReportMissionCompletion(10, 50L);
@@ -441,59 +428,40 @@ public class YourService extends KiboRpcService {
         switch (keepOutAreaPattern){
             case 1:
             case 8:{
-                // moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, 5, true);
-                // moveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, 5, true);
-                selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion,0.05f, 0f, -0.05f,5,true);
-                selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f, 0f, 0f,5, true);
+                move1attempts = selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion,0.05f, 0f, -0.05f,5,true);
+                move2attempts = selfAwareMoveAndAlignTo(new Point(papx+differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f, 0f, 0f,5, true);
                 break;
             }
             case 2:
             case 3:
             case 4: {
-                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, -0.05f,0f, -0.05f,5, true);
-                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f,0f, 0f,5, true);
+                move1attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2), initialQuaternion, -0.05f,0f, -0.05f,5, true);
+                move2attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates, papy, papz), initialQuaternion, -0.05f,0f, 0f,5, true);
                 break;
             }
             case 5:
             case 6: {
-                // moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, 5, true);
-                // moveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz), initialQuaternion, 5, true);
-                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.05f,0f,-0.05f,5, true);
-                selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz), initialQuaternion, -0.05f,0f,0.05f,5, true);
+                move1attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.05f,0f,-0.15f,5, true);
+                move2attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*DEFAULT_OFFSET_COEFFICIENT*1.5f, papy, papz), initialQuaternion, -0.05f,0f,0.05f,5, true);
                 break;
             }
             case 7: {
-            }
-        }
-
-        moveAndAlignTo(new Point(papx, papy, papz), initialQuaternion, 5, true);
-
-    }
-
-
-    private void moveAndAlignToFinish(){
-        switch (keepOutAreaPattern){
-            case 1:
-            case 2:
-            case 3:{
-
-                break;
-            }
-            case 4:{
-                break;
-            }
-            case 5:
-            case 6:
-            case 7:{
-                break;
-            }
-            case 8:{
-                break;
-            }
-            default: {
+                move1attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*6f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.15f,0f,-0.15f,5, true);
+                move2attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*6f, papy, 5.40f), initialQuaternion, -0.15f,0f,0.05f,5, true);
+                move3attempts =selfAwareMoveAndAlignTo(new Point(papx, papy, 5.40f), initialQuaternion, 0.05f,0f,0.05f,5, true);
                 break;
             }
         }
+
+        if ((1<=keepOutAreaPattern&&keepOutAreaPattern<=4)||keepOutAreaPattern==8){
+            move3attempts = selfAwareMoveAndAlignTo(new Point(papx, papy, papz), initialQuaternion, 0,0,-0.05f,5, true);
+        } else if (keepOutAreaPattern==5||keepOutAreaPattern==6) {
+            move3attempts = selfAwareMoveAndAlignTo(new Point(papx, papy, papz), initialQuaternion, 0,0,0.05f,5, true);
+        } else {
+            move4attempts = selfAwareMoveAndAlignTo(new Point(papx, papy, papz), initialQuaternion, 0,0,0.05f,5, true);
+        }
+
+
     }
 
     private Point getConfidentPosition(){
@@ -517,19 +485,19 @@ public class YourService extends KiboRpcService {
         switch (keepOutAreaPattern){
             case 1:
             case 8: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(-1*(float) Math.toRadians(ANGLE_CONSTANT_1),  -1* (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(-12.5f),  (float) Math.toRadians(-20.5f),  0f));
             }
             case 2:
             case 3:
             case 4: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(ANGLE_CONSTANT_1),  -1* (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(6f),  (float) Math.toRadians(-17.5f), 0f));
             }
             case 5:
             case 6: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(ANGLE_CONSTANT_1),   (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(7.5f),   (float) Math.toRadians(1.5f), (float) Math.toRadians(0f)));
             }
             case 7: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles(-1*(float) Math.toRadians(ANGLE_CONSTANT_1),  (float) Math.toRadians(ANGLE_CONSTANT_2), 0f));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(-7.5f), 0f, 0f));
             }
         }
         return new Quaternion(0f, 0f, -0.707f, 0.707f);
@@ -738,9 +706,37 @@ public class YourService extends KiboRpcService {
     }
 
     private void calibrateAstrobee(){
-        
         moveAndAlignTo(new Point(papx, papy, papz), getConfidentQuaternion(), 5, true);
+        logMessage("Calibrated Astrobee.");
     }
+
+    // GOAL: P(10,664, -9.8, 5.299)
+    private void moveToPointB(){
+        switch (keepOutAreaPattern){
+            case 1:
+            case 8: {
+                selfAwareMoveAndAlignTo(new Point(papx, papy, papz-differenceOfQRCodeAndARTagZCoordinates), initialQuaternion,0f, 0f, -0.15f,5,true);
+                selfAwareMoveAndAlignTo(new Point(10.5f, -9.8f, 4.899f),initialQuaternion,-0.1f, 0f,-0.075f,5,true);
+                break;
+            }
+            case 2:
+            case 3:
+            case 4:{
+                selfAwareMoveAndAlignTo(new Point(10.5f, -9.8f, 4.899f),initialQuaternion,-0.1f, 0f,-0.075f,5,true);
+                break;
+            }
+            case 5:
+            case 6:{
+                selfAwareMoveAndAlignTo(new Point(10.5f, -9.8f, 5.299f),initialQuaternion,-0.1f, 0f,+0.05f,5,true);
+                break;
+            }
+            case 7:{
+                // KOZ1-7 is stupid
+            }
+        }
+        moveAndAlignTo(new Point(10.6f, -8.0f, 4.5f), rotateQuaternionByQuaternion(new Quaternion(0f, 0f, -0.707f, 0.707f), calculateQuaternionFromAngles((float) Math.toRadians(180f), 0f, 0f)), 5, true);
+    }
+
 
 }
 
