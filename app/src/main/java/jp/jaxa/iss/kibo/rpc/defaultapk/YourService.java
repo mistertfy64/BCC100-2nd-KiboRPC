@@ -1,7 +1,6 @@
 package jp.jaxa.iss.kibo.rpc.defaultapk;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.SystemClock;
 import android.util.Base64;
 import android.util.Log;
@@ -47,11 +46,6 @@ public class YourService extends KiboRpcService {
     final float DEFAULT_OFFSET_COEFFICIENT = 2.25f;
     // The offset. Default value is 0.275f.
     final float OFFSET = 0.275f;
-    // Whether to use the "preset location". Default value is true.
-    final boolean FORCE_USE_PRESETS = true;
-    // ???
-    final float ANGLE_CONSTANT_1 = 6f;
-    final float ANGLE_CONSTANT_2 = 15f;
     
     // DO NOT EDIT
     final long MILLISECONDS_IN_A_SECOND = 1000;
@@ -446,9 +440,9 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 7: {
-                move1attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*6f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.15f,0f,-0.15f,5, true);
-                move2attempts =selfAwareMoveAndAlignTo(new Point(papx-differenceOfQRCodeAndARTagXCoordinates*6f, papy, 5.40f), initialQuaternion, -0.15f,0f,0.05f,5, true);
-                move3attempts =selfAwareMoveAndAlignTo(new Point(papx, papy, 5.40f), initialQuaternion, 0.05f,0f,0.05f,5, true);
+                move1attempts =selfAwareMoveAndAlignTo(new Point(10.6f, papy, papz-differenceOfQRCodeAndARTagZCoordinates/2f), initialQuaternion, -0.05f,0f,-0.15f,5, true);
+                move2attempts =selfAwareMoveAndAlignTo(new Point(10.6f, papy, 5.50f), initialQuaternion, -0.05f,0f,0.05f,5, true);
+                // move3attempts =selfAwareMoveAndAlignTo(new Point(papx, papy, 5.50f), initialQuaternion, 0.05f,0f,0.05f,5, true);
                 break;
             }
         }
@@ -497,7 +491,7 @@ public class YourService extends KiboRpcService {
                 return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(7.5f),   (float) Math.toRadians(1.5f), (float) Math.toRadians(0f)));
             }
             case 7: {
-                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(-7.5f), 0f, 0f));
+                return rotateQuaternionByQuaternion(startQuaternion, calculateQuaternionFromAngles((float) Math.toRadians(32.5f), 0f, 0f));
             }
         }
         return new Quaternion(0f, 0f, -0.707f, 0.707f);
@@ -514,7 +508,6 @@ public class YourService extends KiboRpcService {
         
         //TODO: If this doesn't work calculate the center and then use that.
         int[][] markerPositions = calculatePositionOfPoints(corners.get(0).get(0,0), corners.get(1).get(0,0), corners.get(2).get(0,0), corners.get(3).get(0,0));
-        // logMessage(markerPositions.toString());
         int[] wantedMarkerPosition = new int[2];
         int markerNumber = 1;
 
