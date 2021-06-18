@@ -36,6 +36,8 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 
 public class YourService extends KiboRpcService {
 
+    // OFFICIAL VERSION 2
+
     // WHY ARE WE USING FLOATS INSTEAD OF DOUBLES????????????
 
     // FEEL FREE TO EDIT
@@ -154,7 +156,7 @@ public class YourService extends KiboRpcService {
         moveToPointB();
 
         // Finished
-        tryToReportMissionCompletion(10, 50L);
+        tryToReportMissionCompletion(100, 50L);
     }
 
 
@@ -261,7 +263,7 @@ public class YourService extends KiboRpcService {
      *                 the method "gives up" because there's no point in reporting "Mission Complete" twice.
      * @param delay    The wait time between the attempts.
      */
-    private void tryToReportMissionCompletion(float attempts, long delay) {
+    private void tryToReportMissionCompletion(int attempts, long delay) {
 
         logMessage("[METHOD INVOCATION] tryToReportMissionCompletion() called!, The robot will now attempt " + attempts + "times to report mission completion while waiting " + delay + "milliseconds between each call.");
 
@@ -348,6 +350,15 @@ public class YourService extends KiboRpcService {
         }
     }
 
+    /**
+     * Crops the image according to the specified positions.
+     * @param image     The original image.
+     * @param x         The left coordinate of the desired image.
+     * @param y         The top coordinate of the desired image.
+     * @param w         The width of the desired image.
+     * @param h         The bottom coordinate of the desired image.
+     * @return          The image as a bitmap.
+     */
     private Bitmap cropImage(Bitmap image, int x, int y, int w, int h) {
         return Bitmap.createBitmap(image, x, y, w, h);
     }
@@ -357,9 +368,9 @@ public class YourService extends KiboRpcService {
 
     /**
      * Copied from https://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
-     * @param q1
-     * @param q2
-     * @return
+     * @param q1 The quaternion to be rotated.
+     * @param q2 The quaternion to use to rotate q1.
+     * @return q1 rotated by q2 as a Quaternion.
      */
     private Quaternion rotateQuaternionByQuaternion(Quaternion q1, Quaternion q2){
         float x =  q1.getX() * q2.getW()+ q1.getY() * q2.getZ() - q1.getZ() * q2.getY() + q1.getW() * q2.getX();
@@ -380,7 +391,6 @@ public class YourService extends KiboRpcService {
      * @return
      */
     private Quaternion calculateQuaternionFromAngles(float yaw, float pitch, float roll){
-        // Abbreviations for the various angular functions
         float cy = (float) Math.cos(yaw * 0.5);
         float sy = (float) Math.sin(yaw * 0.5);
         float cp = (float) Math.cos(pitch * 0.5);
@@ -756,7 +766,7 @@ public class YourService extends KiboRpcService {
                 break;
             }
             case 7:{
-                // KOZ1-7 is stupid
+                break;
             }
         }
         moveAndAlignTo(new Point(10.6f, -8.0f, 4.5f), rotateQuaternionByQuaternion(new Quaternion(0f, 0f, -0.707f, 0.707f), calculateQuaternionFromAngles((float) Math.toRadians(180f), 0f, 0f)), 5, true);
