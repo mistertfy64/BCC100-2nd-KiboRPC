@@ -36,7 +36,7 @@ import jp.jaxa.iss.kibo.rpc.api.KiboRpcService;
 
 public class YourService extends KiboRpcService {
 
-    // OFFICIAL VERSION 2
+    // OFFICIAL VERSION 2a
 
     // WHY ARE WE USING FLOATS INSTEAD OF DOUBLES????????????
 
